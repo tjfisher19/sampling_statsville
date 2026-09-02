@@ -1,15 +1,23 @@
 ---
-title: "Sampling the town of Statsville"
-author: "Dr Thomas Fisher"
+project: website
+
+website: 
+  title: "Sampling the town of Statsville"
+  navbar:
+    left:
+      - href: statsville_census.qmd
+        text: "Sampling Statsville"
+        
 format:
   html:
     page-layout: full
     toc: true
     toc-location: left
-    toc-depth: 4
     toc-title: "Sampling Statsville"
-theme: cerulean
+    theme: cerulean
 ---
+
+
 
 ## Introduction
 
@@ -47,5 +55,3 @@ This activity was heavily influenced by the Random Rectangles activity (Scheaffe
 ## Population grouped by Streets
 
 ![Full population of Statsville](statsville_images/people_streets.png){.lightbox}
-
-
