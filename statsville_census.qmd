@@ -1,5 +1,7 @@
 ---
-project: website
+project:
+  type: website
+  output-dir: docs
 
 website: 
   title: "Sampling the town of Statsville"
