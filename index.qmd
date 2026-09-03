@@ -1,9 +1,10 @@
 ---
+title: "Sampling the town of Statsville"
+
 project:
   type: website
 
 website: 
-  title: "Sampling the town of Statsville"
   navbar:
     left:
       - href: statsville_census.qmd
@@ -47,12 +48,276 @@ This activity was heavily influenced by the Random Rectangles activity (Scheaffe
 
 ## Full Population
 
+Below is an image of residents of the town of *Statsville* along with icons corresponding to the number of social media apps each resident regularly uses.
+
 ![Full population of Statsville](statsville_images/people_all.png){.lightbox}
+
+
+### Simple Random Sample
+
+When little knowledge is known about the distribution of the population, the standard approach is to use a **Simple Random Sample**. A simple random sample is like playing a game of bingo or the lottery -- each person (or number) has an equally likely chance of being selected. In lieu of a bingo cage or lottery spinner, we can use the computer to generate the sample. Use the below random number generator to select residents (by their ID number) to be sampled. 
+
+```{ojs}
+//| echo: false
+
+// 1. Define your sample size
+
+viewof count = Inputs.number([0, 100], {
+  value: 10,
+  step: 1,
+  label: "Sample size:"
+})
+
+viewof runButton = Inputs.button("Generate Simple Random Sample")
+
+html`<div style="display: flex; flex-direction: column; gap: 20px;">
+  ${viewof count}
+  ${viewof runButton}
+</div>`
+```
+
+<br> <!-- Direct vertical spacing -->
+
+```{ojs}
+//| echo: false
+// 3. Shuffle and slice to get your random sample
+// 1. Define your data array
+
+people = Array.from({ length: 100 }, (_, index) => index + 1);
+
+
+randomSample = {
+   runButton;
+   return d3.shuffle([...people]).slice(0, count);
+}
+```
+
+```{ojs}
+//| echo: false
+// 3. Display the numbers beautifully
+{
+  if (runButton === 0) {
+  return md`**Click the button to generate a sample**`;
+  } else {
+  return md`**Your Sample:** Persons ${randomSample.sort((a, b) => a - b).join(",  ")}`
+  }
+}
+```
+
+
 
 ## Grouped by Ages
 
+Below is an image of all the residents of *Statsville* but they have been grouped by ages, teenagers, those in their 20s, in their 30s, in their 40s, and in their 50s, respectively.
+
 ![Population of Statsville grouped by Ages](statsville_images/people_ages.png){.lightbox}
+
+### Stratified Sampling
+
+Here the population is grouped by age and a quick look shows that distribution of social media apps is not the same across all age groups (visually it appears residents in their 20s have more social media apps than residents in their 50s). It is possible that a simple random sample would not truly be representative of the population. We can use these groupings and the random number generators below to build a **Stratified Sample**.
+
+```{ojs}
+//| echo: false
+//| layout-ncol: 2
+viewof teen_count = Inputs.number([0, 20], {
+  value: 2,
+  step: 1,
+  label: "Teenager Sample size:"
+})
+
+viewof runTeens = Inputs.button("Generate Sample of Teenagers")
+```
+
+
+```{ojs}
+//| echo: false
+teens = [1,9,12,13,17,24,25,27,34,41,43,54,67,68,73,74,75,77,88,98]
+
+teenSample = {
+   runTeens;
+   return d3.shuffle([...teens]).slice(0, teen_count);
+}
+
+{
+  if (runTeens === 0) {
+  return md`**Click the button to generate a sample**`;
+  } else {
+  return md`**Sample of teenagers:** Persons ${teenSample.sort((a, b) => a - b).join(",  ")}`
+  }
+}
+```
+
+
+
+```{ojs}
+//| echo: false
+//| layout-ncol: 2
+viewof twenty_count = Inputs.number([0, 20], {
+  value: 2,
+  step: 1,
+  label: "Twenties Sample size:"
+})
+
+viewof runTwenty = Inputs.button("Generate Sample of those in the 20s")
+```
+
+
+```{ojs}
+//| echo: false
+twenty = [2,4,6,10,15,35,38,44,45,47,48,55,61,69,70,78,80,93,97,100]
+
+twentySample = {
+   runTwenty;
+   return d3.shuffle([...twenty]).slice(0, twenty_count);
+}
+
+{
+  if (runTwenty === 0) {
+  return md`**Click the button to generate a sample**`;
+  } else {
+  return md`**Sample of those in their 20s:** Persons ${twentySample.sort((a, b) => a - b).join(",  ")}`
+  }
+}
+```
+
+
+
+
+
+```{ojs}
+//| echo: false
+//| layout-ncol: 2
+viewof thirty_count = Inputs.number([0, 20], {
+  value: 2,
+  step: 1,
+  label: "Thirties Sample size:"
+})
+
+viewof runThirty = Inputs.button("Generate Sample of those in the 30s")
+```
+
+
+```{ojs}
+//| echo: false
+thirty = [3,5,18,19,23,26,30,31,32,36,49,51,53,56,57,64,83,89,90,96]
+
+thirtySample = {
+   runThirty;
+   return d3.shuffle([...thirty]).slice(0, thirty_count);
+}
+
+{
+  if (runThirty === 0) {
+  return md`**Click the button to generate a sample**`;
+  } else {
+  return md`**Sample of those in their 30s:** Persons ${thirtySample.sort((a, b) => a - b).join(",  ")}`
+  }
+}
+```
+
+
+
+```{ojs}
+//| echo: false
+//| layout-ncol: 2
+viewof forty_count = Inputs.number([0, 20], {
+  value: 2,
+  step: 1,
+  label: "Forties Sample size:"
+})
+
+viewof runForty = Inputs.button("Generate Sample of those in the 40s")
+```
+
+
+```{ojs}
+//| echo: false
+forty = [7,11,20,21,22,28,37,40,46,52,60,66,72,79,81,82,91,92,94,99]
+
+fortySample = {
+   runForty;
+   return d3.shuffle([...forty]).slice(0, forty_count);
+}
+
+{
+  if (runForty === 0) {
+  return md`**Click the button to generate a sample**`;
+  } else {
+  return md`**Sample of those in their 40s:** Persons ${fortySample.sort((a, b) => a - b).join(",  ")}`
+  }
+}
+```
+
+
+
+```{ojs}
+//| echo: false
+//| layout-ncol: 2
+viewof fifty_count = Inputs.number([0, 20], {
+  value: 2,
+  step: 1,
+  label: "Fifties Sample size:"
+})
+
+viewof runFifty = Inputs.button("Generate Sample of those in the 50s")
+```
+
+
+```{ojs}
+//| echo: false
+fifty = [8,14,16,29,33,39,42,50,58,59,62,63,65,71,76,84,85,86,87,95]
+
+fiftySample = {
+   runFifty;
+   return d3.shuffle([...fifty]).slice(0, fifty_count);
+}
+
+{
+  if (runFifty === 0) {
+  return md`**Click the button to generate a sample**`;
+  } else {
+  return md`**Sample of those in their 50s:** Persons ${fiftySample.sort((a, b) => a - b).join(",  ")}`
+  }
+}
+```
 
 ## Population grouped by Streets
 
-![Full population of Statsville](statsville_images/people_streets.png){.lightbox}
+This diagram shows the 100 residents grouped by the street in which they live. 
+
+![Population of Statsville grouped by Home Street](statsville_images/people_streets.png){.lightbox}
+
+### Cluster Sampling
+
+Here, the residents have been grouped by the street of their home. A visual inspection shows no clear patterns in the distribution social media apps by street (as compared to grouping by age where it was fairly clear different age groups have different number of social media apps).  This type of segmentation of the population leads to a method known as **Cluster Sampling** -- randomly choose clusters (in this case Streets) and sample all residents that live on a specific street.
+
+```{ojs}
+//| echo: false
+//| layout-ncol: 2
+viewof street_count = Inputs.number([0, 20], {
+  value: 2,
+  step: 1,
+  label: "Number of Clusters:"
+})
+
+viewof runStreet = Inputs.button("Generate Sample of Clusters")
+```
+
+
+```{ojs}
+//| echo: false
+streets = ["Apple Avenue", "Beech Street", "Chestnut Street", "Dogwood Drive", "Elm Street","Falcon Avenue", "Goetta Way", "High Street", "Indigo Avenue", "Jambalaya Drive", "Kookaburra Court", "Lemon Lane", "Maple Street", "Narwhal Alley", "Oak Street", "Poplar Street", "Quinoa Way", "Ramblin Road", "Sycamore Street", "Truffula Road"]
+
+streetSample = {
+   runStreet;
+   return d3.shuffle([...streets]).slice(0, street_count);
+}
+
+{
+  if (runStreet === 0) {
+  return md`**Click the button to generate a sample of clusters**`;
+  } else {
+  return md`**Streets Chosen to Sample:** ${streetSample.sort((a, b) => a.localeCompare(b)).join(",  ")}`
+  }
+}
+```
