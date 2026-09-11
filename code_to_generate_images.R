@@ -524,11 +524,11 @@ ggsave("statsville_images/people_streets.png", plot=plot_streets, scale=1.5,
 ##################################
 ## PDF versions
 
-ggsave("statsville_images/people_all.pdf", plot=all_people_grid,
+ggsave("statsville_images/statsville_people_all.pdf", plot=all_people_grid,
        width=7.5, height=10, units="in", dpi=600)
 
-ggsave("statsville_images/people_ages.pdf", plot=plot_ages,
+ggsave("statsville_images/statsville_people_ages.pdf", plot=plot_ages,
        width=7.5, height=10, units="in", dpi=600)
 
-ggsave("statsville_images/people_streets.pdf", plot=plot_streets,
+ggsave("statsville_images/statsville_people_streets.pdf", plot=plot_streets,
        width=7.5, height=10, units="in", dpi=600)
