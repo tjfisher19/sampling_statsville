@@ -24,18 +24,18 @@ format:
 ## Introduction
 
 
-*Statsville* is a quaint fictional hamlet that is nestled in the foothills of the *Regression Mountains* with a beautiful view of *Lake Median*. The **population** is quite small as only **100 residents** between the ages of 13 and 59 live in Statsville. The layout of the town is a basic square grid with 20 unique roads – *conveniently* named with first letters A to T. 
+*Statsville* is a quaint fictional hamlet that is nestled in the foothills of the *Regression Mountains* with a beautiful view of *Lake Median*. The **population** is quite small as only **100 residents** between the ages of 13 and 59 live in *Statsville*. The layout of the town is a basic square grid with 20 unique roads – *conveniently* named with first letters A to T. 
 
 
-The *Mean Diner* is looking to increase business and has decided to start advertising on social media. Before investing into their campaign, management wishes to know what sort of effort is required to advertise on social media. In particular, management needs to know how many social media apps each resident typically uses so they can spend their advertising dollars wisely.
+The *Mean Diner* is looking to increase business and has decided to start advertising on social media. Before investing into their campaign, management wishes to know what sort of effort is required. In particular, management needs to know how many social media apps each resident typically uses so they can spend their advertising dollars wisely.
 
 ::: {style="float: right; margin-left: 15px;"}
 ![Person 22, 8 social media apps](person_cards/person_card_022.png){width="120px"}
 :::
-A diagram below displays all 100 residents along with an icon ![social media icon](statsville_images/Gemini_Generated_Image_yer454yer454yer4.png){height=13pt} for each social media site (*e.g.*, TikTok, YouTube, Instagram) the resident uses regularly. For example, Person 22 if a female with Brown Eyes, is 66.9 inches tall and regularly uses 8 social media sites as ![social media icon](statsville_images/Gemini_Generated_Image_yer454yer454yer4.png){height=13pt} appears 8 times. Another includes an image of those same residents stratified by their respective age groups (teenagers, twenty-somethings, residents in their 30s, in their forties and fifties). Lastly, a final figure includes an image of each resident grouped by the street in which they live.
+A diagram below displays all 100 residents along with an icon ![social media icon](statsville_images/Gemini_Generated_Image_yer454yer454yer4.png){height=13pt} for each social media site (*e.g.*, TikTok, YouTube, Instagram) the resident uses regularly. For example, Person 22 is a female with Brown Eyes, is 66.9 inches tall, and regularly uses 8 social media sites as ![social media icon](statsville_images/Gemini_Generated_Image_yer454yer454yer4.png){height=13pt} appears 8 times. Another grid displays an image of those same residents stratified by their respective age groups (teenagers, twenty-somethings, residents in their 30s, in their forties and fifties). Lastly, a final figure includes an image of each resident grouped by the street in which they live.
 
 
-We will use this population to explore different sampling techniques to help the *Mean Diner* estimate the average number of social media accounts for residents in *Statsville*. 
+We will use this population to explore different sampling techniques to help the *Mean Diner* estimate the average number of social media apps for residents in *Statsville*. 
 
 
 ### Teacher Notes & Citations
@@ -55,7 +55,7 @@ Below is an image of residents of the town of *Statsville* along with icons corr
 
 ### Simple Random Sample
 
-When little knowledge is known about the distribution of the population, the standard approach is to use a **Simple Random Sample**. A simple random sample is like playing a game of bingo or the lottery -- each person (or number) has an equally likely chance of being selected. In lieu of a bingo cage or lottery spinner, we can use the computer to generate the sample. Use the below random number generator to select residents (by their ID number) to be sampled. 
+When little knowledge is known about the distribution of the population, the standard approach is to use a **Simple Random Sample**. A simple random sample is like playing a game of bingo or the lottery -- each person (or number) has an equal chance of being selected. In lieu of a bingo cage or lottery spinner, we can use the computer to generate the sample. Use the below random number generator to select residents (by their ID number) to be sampled. 
 
 ```{ojs}
 //| echo: false
@@ -114,7 +114,7 @@ Below is an image of all the residents of *Statsville* but they have been groupe
 
 ### Stratified Sampling
 
-Here the population is grouped by age and a quick look shows that distribution of social media apps is not the same across all age groups (visually it appears residents in their 20s have more social media apps than residents in their 50s). It is possible that a simple random sample would not truly be representative of the population. We can use these groupings and the random number generators below to build a **Stratified Sample**.
+Here the population is grouped by age and a quick look shows that distribution of social media apps is not the same across all age groups (visually it appears residents in their 20s have more social media apps than residents in their 50s). It is possible that a simple random sample would not truly be representative of the population. We can use these groupings and the random number generator below to build a **Stratified Sample**.
 
 ```{ojs}
 //| echo: false
@@ -289,7 +289,7 @@ This diagram shows the 100 residents grouped by the street in which they live.
 
 ### Cluster Sampling
 
-Here, the residents have been grouped by the street of their home. A visual inspection shows no clear patterns in the distribution social media apps by street (as compared to grouping by age where it was fairly clear different age groups have different number of social media apps).  This type of segmentation of the population leads to a method known as **Cluster Sampling** -- randomly choose clusters (in this case Streets) and sample all residents that live on a specific street.
+Here, the residents have been grouped by the street of their home. Compared to the grouping by age, it is not as clear if there are patterns in the distribution social media apps by street.  This type of segmentation of the population leads to a method known as **Cluster Sampling** -- randomly choose clusters (in this case Streets) and sample all residents that live on a specific street.
 
 ```{ojs}
 //| echo: false
@@ -321,3 +321,6 @@ streetSample = {
   }
 }
 ```
+
+
+
