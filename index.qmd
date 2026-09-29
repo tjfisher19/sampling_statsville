@@ -24,7 +24,7 @@ format:
 ## Introduction
 
 <details>
-<summary>**Video Introduction**</summary>
+<summary><p style="color: #C42D10; font-size: 120%; font-weight: bold;">Video Introduction</p></summary>
 
 <iframe src="video_html/statsville_story.html" width="80%" height="600px" style="border:none;"></iframe>
 
@@ -66,7 +66,7 @@ Below is an image of residents of the town of *Statsville* along with icons corr
 When little knowledge is known about the distribution of the population, the standard approach is to use a **Simple Random Sample**. A simple random sample is like playing a game of bingo or the lottery -- each person (or number) has an equal chance of being selected. In lieu of a bingo cage or lottery spinner, we can use the computer to generate the sample. 
 
 <details>
-<summary>**Simple Random Sample Video**</summary>
+<summary><p style="color: #C42D10; font-size: 120%; font-weight: bold;">Simple Random Sample Video</p></summary>
 
 <iframe src="video_html/simple_random_sampling.html" width="80%" height="600px" style="border:none;"></iframe>
 
@@ -128,7 +128,7 @@ Systematic sampling is a technique where a researchers select members of the tar
 
 
 <details>
-<summary>**Systematic Sampling Video**</summary>
+<summary><p style="color: #C42D10; font-size: 120%; font-weight: bold;">Systematic Sampling Video</p></summary>
 
 <iframe src="video_html/systematic_sampling.html" width="80%" height="600px" style="border:none;"></iframe>
 
@@ -187,7 +187,7 @@ Below is an image of all the residents of *Statsville* but they have been groupe
 Here the population is grouped by age and a quick look shows that distribution of social media apps is not the same across all age groups (visually it appears residents in their 20s have more social media apps than residents in their 50s). It is possible that a simple random sample would not truly be representative of the population. 
 
 <details>
-<summary>**Stratified Sampling Video**</summary>
+<summary><p style="color: #C42D10; font-size: 120%; font-weight: bold;">Stratified Sampling Video</p></summary>
 
 <iframe src="video_html/stratified_sampling.html" width="80%" height="600px" style="border:none;"></iframe>
 
@@ -372,7 +372,7 @@ Here, the residents have been grouped by the street of their home. Compared to t
 
 
 <details>
-<summary>**Cluster Sampling Video**</summary>
+<summary><p style="color: #C42D10; font-size: 120%; font-weight: bold;">Cluster Sampling Video</p></summary>
 
 <iframe src="video_html/cluster_sampling.html" width="80%" height="600px" style="border:none;"></iframe>
 
@@ -417,7 +417,7 @@ streetSample = {
 The above outline and applets provide an overview of four common sampling methods.
 
 <details>
-<summary>**Conclusion Video**</summary>
+<summary><p style="color: #C42D10; font-size: 120%; font-weight: bold;">Conclusion Video</p></summary>
 
 <iframe src="video_html/final_video.html" width="80%" height="600px" style="border:none;"></iframe>
 
