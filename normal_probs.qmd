@@ -1,0 +1,75 @@
+---
+title: "Interactive Inverse Normal Distribution"
+format: html
+---
+
+Choose a cumulative probability to find the corresponding critical value ($z$-score) on the standard normal distribution.
+
+```{ojs}
+// 1. Define the inputs
+viewof probability = Inputs.range([0.001, 0.999], {
+  value: 0.95, 
+  step: 0.001, 
+  label: "Cumulative Probability (p):"
+})
+
+viewof mean = Inputs.number([-10, 10], {value: 0, step: 0.1, label: "Mean (μ):"})
+viewof sd = Inputs.number([0.1, 10], {value: 1, step: 0.1, label: "Std Dev (σ):"})
+```
+
+### Results
+
+```{ojs}
+// 2. Calculate the inverse normal (quantile) using the jstat library
+jstat = require("jstat@1.9.4")
+
+z_score = jstat.normal.inv(probability, mean, sd)
+```
+
+The value corresponding to a cumulative probability of **${(probability * 100).toFixed(1)}%** is **${z_score.toFixed(4)}**.
+
+```{ojs}
+// 3. Generate data points for the normal curve plot
+data = {
+  const points = [];
+  const minX = mean - 4 * sd;
+  const maxX = mean + 4 * sd;
+  const steps = 200;
+  
+  for (let i = 0; i <= steps; i++) {
+    const x = minX + (i / steps) * (maxX - minX);
+    const y = jstat.normal.pdf(x, mean, sd);
+    points.push({ x, y, filled: x <= z_score });
+  }
+  return points;
+}
+
+// 4. Render the plot using Observable Plot
+Plot.plot({
+  marks: [
+    // Shaded area representing the cumulative probability
+    Plot.areaY(data.filter(d => d.filled), {
+      x: "x", 
+      y: "y", 
+      fill: "#4299e1", 
+      fillOpacity: 0.4
+    }),
+    // The entire normal curve line
+    Plot.line(data, {
+      x: "x", 
+      y: "y", 
+      stroke: "#1a202c", 
+      strokeWidth: 2
+    }),
+    // Vertical reference line at the calculated z-score
+    Plot.ruleX([z_score], {
+      stroke: "#e53e3e", 
+      strokeWidth: 2, 
+      strokeDasharray: "4,4"
+    })
+  ],
+  x: { label: "Value (X)" },
+  y: { label: "Density" },
+  grid: true
+})
+```

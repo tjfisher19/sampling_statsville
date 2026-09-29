@@ -1,0 +1,177 @@
+---
+title: "Normal Calculators"
+format: html
+echo: false
+---
+
+::: {.panel-tabset}
+
+## One-sided Probability
+
+```{ojs}
+//| panel: sidebar
+// 1. User Inputs
+viewof mean = Inputs.number({label: "Mean (μ)", value: 0, step: 0.1});
+viewof sd = Inputs.number({label: "Std. Dev. (σ)", value: 1, step: 0.1, min: 0.000001});
+viewof direction = Inputs.radio(["Below (≤)", "Above (≥)"], {label: "Direction", value: "Below (≤)"});
+viewof x_val = Inputs.number({label: "X value", value: 0, step: 0.01});
+```
+
+```{ojs}
+//| panel: fill
+// 2. Display the Interactive Plot
+Plot.plot({
+  grid: true,
+  x: {domain: [mean - 4 * sd, mean + 4 * sd], label: ""},
+  y: {label: "Density"},
+  marks: [
+    // Shaded Area representing the probability
+    Plot.areaY(curveData.filter(d => direction === "Below (≤)" ? d.x <= x_val : d.x >= x_val), {
+      x: "x",
+      y: "y",
+      fill: "#4682b4",
+      fillOpacity: 0.4
+    }),
+    // The entire Normal Curve outline
+    Plot.line(curveData, {x: "x", y: "y", stroke: "#1f77b4", strokeWidth: 4}),
+    // Vertical line at the selected X value
+    Plot.ruleX([x_val], {stroke: "red", strokeDasharray: "4 4"})
+  ]
+})
+```
+
+***
+
+### **Result**
+
+```{ojs}
+// 3. Output the calculated probability
+html`<div style="font-size: 1.4em; font-weight: bold; color: #2c3e50;">
+  P(X ${direction === "Below (≤)" ? "≤" : "≥"} ${x_val}) = ${probability.toFixed(4)}
+</div>`
+```
+
+
+
+
+
+## Two-sided Probability
+
+```{ojs}
+//| panel: sidebar
+// 1. User Inputs
+viewof mean2 = Inputs.number({label: "Mean (μ)", value: 0, step: 0.1});
+viewof sd2 = Inputs.number({label: "Std. Dev. (σ)", value: 1, step: 0.1, min: 0.000001});
+viewof x_val_lo = Inputs.number({label: "Lower Limit", value: 0, step: 0.01});
+viewof x_val_hi = Inputs.number({label: "Upper Limit", value: 1, step: 0.01});
+```
+
+```{ojs}
+//| panel: fill
+// 2. Display the Interactive Plot
+Plot.plot({
+  grid: true,
+  x: {domain: [mean2 - 4 * sd2, mean2 + 4 * sd2], label: ""},
+  y: {label: "Density"},
+  marks: [
+    // Shaded Area representing the probability
+    Plot.areaY(curveData2.filter(d => x_val_lo <= d.x  && d.x <= x_val_hi ), {
+      x: "x",
+      y: "y",
+      fill: "#4682b4",
+      fillOpacity: 0.4
+    }),
+    // The entire Normal Curve outline
+    Plot.line(curveData2, {x: "x", y: "y", stroke: "#1f77b4", strokeWidth: 4}),
+    // Vertical line at the selected X value
+    Plot.ruleX([x_val_lo], {stroke: "red", strokeDasharray: "4 4"}),
+    Plot.ruleX([x_val_hi], {stroke: "red", strokeDasharray: "4 4"})
+  ]
+})
+```
+
+***
+
+### **Result**
+```{ojs}
+// 3. Output the calculated probability
+html`<div style="font-size: 1.4em; font-weight: bold; color: #2c3e50;">
+  P(${x_val_lo} ≤ X ≤ ${x_val_hi}) = ${probability2.toFixed(4)}
+</div>`
+```
+
+:::
+
+```{ojs}
+// 4. Mathematical Helper Functions
+
+// Normal Probability Density Function (PDF)
+function normalPDF(x, mu, sigma) {
+  return (1 / (sigma * Math.sqrt(2 * Math.PI))) * Math.exp(-0.5 * Math.pow((x - mu) / sigma, 2));
+}
+
+// Error Function (erf) approximation for Cumulative Distribution Function (CDF)
+function erf(x) {
+  const a1 =  0.254829592;
+  const a2 = -0.284496736;
+  const a3 =  1.421413741;
+  const a4 = -1.453152027;
+  const a5 =  1.061405429;
+  const p  =  0.3275911;
+
+  const sign = (x < 0) ? -1 : 1;
+  const absX = Math.abs(x);
+
+  const t = 1.0 / (1.0 + p * absX);
+  const y = 1.0 - (((((a5 * t + a4) * t) + a3) * t + a2) * t + a1) * t * Math.exp(-absX * absX);
+
+  return sign * y;
+}
+
+// Normal Cumulative Distribution Function (CDF)
+function normalCDF(x, mu, sigma) {
+  return 0.5 * (1 + erf((x - mu) / (sigma * Math.sqrt(2))));
+}
+
+// Generate coordinate points to draw the curve smoothly
+curveData = {
+  const points = [];
+  const minX = mean - 4 * sd;
+  const maxX = mean + 4 * sd;
+  const steps = 200;
+  const stepSize = (maxX - minX) / steps;
+  
+  for (let i = 0; i <= steps; i++) {
+    let currentX = minX + i * stepSize;
+    points.push({ x: currentX, y: normalPDF(currentX, mean, sd) });
+  }
+  return points;
+}
+
+// Calculate the final probability output dynamically
+probability = {
+  const pBelow = normalCDF(x_val, mean, sd);
+  return direction === "Below (≤)" ? pBelow : 1 - pBelow;
+}
+
+curveData2 = {
+  const points = [];
+  const minX = mean2 - 4 * sd2;
+  const maxX = mean2 + 4 * sd2;
+  const steps = 200;
+  const stepSize = (maxX - minX) / steps;
+  
+  for (let i = 0; i <= steps; i++) {
+    let currentX = minX + i * stepSize;
+    points.push({ x: currentX, y: normalPDF(currentX, mean2, sd2) });
+  }
+  return points;
+}
+
+probability2 = {
+   const p2lo = normalCDF(x_val_lo, mean, sd);
+   const p2hi = normalCDF(x_val_hi, mean, sd);
+   return p2hi - p2lo;
+}
+```
+

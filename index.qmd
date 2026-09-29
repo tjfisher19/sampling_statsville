@@ -23,6 +23,12 @@ format:
 
 ## Introduction
 
+<details>
+<summary>**Video Introduction**</summary>
+
+<iframe src="video_html/statsville_story.html" width="80%" height="600px" style="border:none;"></iframe>
+
+</details>
 
 *Statsville* is a quaint fictional hamlet that is nestled in the foothills of the *Regression Mountains* with a beautiful view of *Lake Median*. The **population** is quite small as only **100 residents** between the ages of 13 and 59 live in *Statsville*. The layout of the town is a basic square grid with 20 unique roads – *conveniently* named with first letters A to T. 
 
@@ -55,7 +61,18 @@ Below is an image of residents of the town of *Statsville* along with icons corr
 
 ### Simple Random Sample
 
-When little knowledge is known about the distribution of the population, the standard approach is to use a **Simple Random Sample**. A simple random sample is like playing a game of bingo or the lottery -- each person (or number) has an equal chance of being selected. In lieu of a bingo cage or lottery spinner, we can use the computer to generate the sample. Use the below random number generator to select residents (by their ID number) to be sampled. 
+
+
+When little knowledge is known about the distribution of the population, the standard approach is to use a **Simple Random Sample**. A simple random sample is like playing a game of bingo or the lottery -- each person (or number) has an equal chance of being selected. In lieu of a bingo cage or lottery spinner, we can use the computer to generate the sample. 
+
+<details>
+<summary>**Simple Random Sample Video**</summary>
+
+<iframe src="video_html/simple_random_sampling.html" width="80%" height="600px" style="border:none;"></iframe>
+
+</details>
+
+Use the below random number generator to select residents (by their ID number) to be sampled. 
 
 ```{ojs}
 //| echo: false
@@ -104,6 +121,59 @@ randomSample = {
 }
 ```
 
+### Systematic Sampling
+
+
+Systematic sampling is a technique where a researchers select members of the target population at regular or fixed intervals after choosing a random starting point. As an example, you may sample every $n$th person.
+
+
+<details>
+<summary>**Systematic Sampling Video**</summary>
+
+<iframe src="video_html/systematic_sampling.html" width="80%" height="600px" style="border:none;"></iframe>
+
+</details>
+
+
+Use may use the random number generator to randomly select one of the first 10 residents to start the systemic sampling procedure.
+
+```{ojs}
+//| echo: false
+
+// 1. Define your sample size
+
+viewof rollDie = Inputs.button("🎲 Roll 10-sided Die")
+
+html`<div style="display: flex; flex-direction: column; gap: 20px;">
+  ${viewof rollDie}
+</div>`
+```
+
+<br> <!-- Direct vertical spacing -->
+
+```{ojs}
+//| echo: false
+// 3. Shuffle and slice to get your random sample
+// 1. Define your data array
+
+randomDie = {
+   rollDie;
+   return Math.floor(Math.random() * 10) + 1;
+}
+```
+
+```{ojs}
+//| echo: false
+// 3. Display the numbers beautifully
+{
+  if (rollDie === 0) {
+  return md`**Click the button to roll the die**`;
+  } else {
+  return md`**Your Die Roll:** Person ${randomDie}`
+  }
+}
+```
+
 
 
 ## Grouped by Ages
@@ -114,7 +184,16 @@ Below is an image of all the residents of *Statsville* but they have been groupe
 
 ### Stratified Sampling
 
-Here the population is grouped by age and a quick look shows that distribution of social media apps is not the same across all age groups (visually it appears residents in their 20s have more social media apps than residents in their 50s). It is possible that a simple random sample would not truly be representative of the population. We can use these groupings and the random number generator below to build a **Stratified Sample**.
+Here the population is grouped by age and a quick look shows that distribution of social media apps is not the same across all age groups (visually it appears residents in their 20s have more social media apps than residents in their 50s). It is possible that a simple random sample would not truly be representative of the population. 
+
+<details>
+<summary>**Stratified Sampling Video**</summary>
+
+<iframe src="video_html/stratified_sampling.html" width="80%" height="600px" style="border:none;"></iframe>
+
+</details>
+
+We can use these groupings and the random number generator below to build a **Stratified Sample**.
 
 ```{ojs}
 //| echo: false
@@ -291,6 +370,16 @@ This diagram shows the 100 residents grouped by the street in which they live.
 
 Here, the residents have been grouped by the street of their home. Compared to the grouping by age, it is not as clear if there are patterns in the distribution social media apps by street.  This type of segmentation of the population leads to a method known as **Cluster Sampling** -- randomly choose clusters (in this case Streets) and sample all residents that live on a specific street.
 
+
+<details>
+<summary>**Cluster Sampling Video**</summary>
+
+<iframe src="video_html/cluster_sampling.html" width="80%" height="600px" style="border:none;"></iframe>
+
+</details>
+
+Use the Applet below to generate a Cluster Sample.
+
 ```{ojs}
 //| echo: false
 //| layout-ncol: 2
@@ -323,4 +412,14 @@ streetSample = {
 ```
 
 
+## Conclusions
+
+The above outline and applets provide an overview of four common sampling methods.
+
+<details>
+<summary>**Conclusion Video**</summary>
+
+<iframe src="video_html/final_video.html" width="80%" height="600px" style="border:none;"></iframe>
+
+</details>
 

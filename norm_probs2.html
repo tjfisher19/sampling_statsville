@@ -1,0 +1,811 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>Normal Calculators</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="norm_probs2_files/libs/clipboard/clipboard.min.js"></script>
+<script src="norm_probs2_files/libs/quarto-html/quarto.js" type="module"></script>
+<script src="norm_probs2_files/libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="norm_probs2_files/libs/quarto-html/popper.min.js"></script>
+<script src="norm_probs2_files/libs/quarto-html/tippy.umd.min.js"></script>
+<script src="norm_probs2_files/libs/quarto-html/anchor.min.js"></script>
+<link href="norm_probs2_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="norm_probs2_files/libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="norm_probs2_files/libs/bootstrap/bootstrap.min.js"></script>
+<link href="norm_probs2_files/libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="norm_probs2_files/libs/bootstrap/bootstrap-bb462d781dde1847d9e3ccf7736099dd.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script type="module" src="norm_probs2_files/libs/quarto-ojs/quarto-ojs-runtime.js"></script>
+<link href="norm_probs2_files/libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
+
+
+</head>
+
+<body class="fullcontent quarto-light">
+
+<div id="quarto-content" class="page-columns page-rows-contents page-layout-article">
+
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Normal Calculators</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" href="">One-sided Probability</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false" href="">Two-sided Probability</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<div class="panel-grid layout-sidebar ms-md-0 layout-sidebar-left">
+<div class="cell panel-sidebar card bg-light p-2 g-col-24 g-col-lg-7">
+<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="14" data-source-offset="-19"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 13;"><span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>viewof mean <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">number</span>({<span class="dt">label</span><span class="op">:</span> <span class="st">"Mean (μ)"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span>})<span class="op">;</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>viewof sd <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">number</span>({<span class="dt">label</span><span class="op">:</span> <span class="st">"Std. Dev. (σ)"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dt">min</span><span class="op">:</span> <span class="fl">0.000001</span>})<span class="op">;</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>viewof direction <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">radio</span>([<span class="st">"Below (≤)"</span><span class="op">,</span> <span class="st">"Above (≥)"</span>]<span class="op">,</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Direction"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="st">"Below (≤)"</span>})<span class="op">;</span></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>viewof x_val <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">number</span>({<span class="dt">label</span><span class="op">:</span> <span class="st">"X value"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span>})<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-1-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="panel-fill panel-grid g-col-24 g-col-lg-17 pt-3 pt-lg-0">
+<div class="g-col-24">
+<div class="cell panel-fill">
+<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="21" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 20;"><span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a><span class="co">// 2. Display the Interactive Plot</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [mean <span class="op">-</span> <span class="dv">4</span> <span class="op">*</span> sd<span class="op">,</span> mean <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> sd]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">""</span>}<span class="op">,</span></span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Density"</span>}<span class="op">,</span></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Shaded Area representing the probability</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">areaY</span>(curveData<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> direction <span class="op">===</span> <span class="st">"Below (≤)"</span> <span class="op">?</span> d<span class="op">.</span><span class="at">x</span> <span class="op">&lt;=</span> x_val <span class="op">:</span> d<span class="op">.</span><span class="at">x</span> <span class="op">&gt;=</span> x_val)<span class="op">,</span> {</span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fill</span><span class="op">:</span> <span class="st">"#4682b4"</span><span class="op">,</span></span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fillOpacity</span><span class="op">:</span> <span class="fl">0.4</span></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a>    })<span class="op">,</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>    <span class="co">// The entire Normal Curve outline</span></span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(curveData<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#1f77b4"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">4</span>})<span class="op">,</span></span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Vertical line at the selected X value</span></span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([x_val]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> <span class="st">"red"</span><span class="op">,</span> <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"4 4"</span>})</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-2" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr>
+<section id="result" class="level3">
+<h3 class="anchored" data-anchor-id="result"><strong>Result</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="47" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 46;"><span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="co">// 3. Output the calculated probability</span></span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;div style="font-size: 1.4em; font-weight: bold; color: #2c3e50;"&gt;</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="vs">  P(X </span><span class="sc">${</span>direction <span class="op">===</span> <span class="st">"Below (≤)"</span> <span class="op">?</span> <span class="st">"≤"</span> <span class="op">:</span> <span class="st">"≥"</span><span class="sc">}</span><span class="vs"> </span><span class="sc">${</span>x_val<span class="sc">}</span><span class="vs">) = </span><span class="sc">${</span>probability<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">4</span>)<span class="sc">}</span></span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/div&gt;`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-3" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</section>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<div class="panel-grid layout-sidebar ms-md-0 layout-sidebar-left">
+<div class="cell panel-sidebar card bg-light p-2 g-col-24 g-col-lg-7">
+<div class="sourceCode cell-code hidden" id="cb4" data-startfrom="63" data-source-offset="-19"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 62;"><span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>viewof mean2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">number</span>({<span class="dt">label</span><span class="op">:</span> <span class="st">"Mean (μ)"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span>})<span class="op">;</span></span>
+<span id="cb4-64"><a href="#cb4-64" aria-hidden="true" tabindex="-1"></a>viewof sd2 <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">number</span>({<span class="dt">label</span><span class="op">:</span> <span class="st">"Std. Dev. (σ)"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.1</span><span class="op">,</span> <span class="dt">min</span><span class="op">:</span> <span class="fl">0.000001</span>})<span class="op">;</span></span>
+<span id="cb4-65"><a href="#cb4-65" aria-hidden="true" tabindex="-1"></a>viewof x_val_lo <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">number</span>({<span class="dt">label</span><span class="op">:</span> <span class="st">"Lower Limit"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">0</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span>})<span class="op">;</span></span>
+<span id="cb4-66"><a href="#cb4-66" aria-hidden="true" tabindex="-1"></a>viewof x_val_hi <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">number</span>({<span class="dt">label</span><span class="op">:</span> <span class="st">"Upper Limit"</span><span class="op">,</span> <span class="dt">value</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span> <span class="dt">step</span><span class="op">:</span> <span class="fl">0.01</span>})<span class="op">;</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="panel-fill panel-grid g-col-24 g-col-lg-17 pt-3 pt-lg-0">
+<div class="g-col-24">
+<div class="cell panel-fill">
+<div class="sourceCode cell-code hidden" id="cb5" data-startfrom="70" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 69;"><span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a><span class="co">// 2. Display the Interactive Plot</span></span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>Plot<span class="op">.</span><span class="fu">plot</span>({</span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>  <span class="dt">grid</span><span class="op">:</span> <span class="kw">true</span><span class="op">,</span></span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a>  <span class="dt">x</span><span class="op">:</span> {<span class="dt">domain</span><span class="op">:</span> [mean2 <span class="op">-</span> <span class="dv">4</span> <span class="op">*</span> sd2<span class="op">,</span> mean2 <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> sd2]<span class="op">,</span> <span class="dt">label</span><span class="op">:</span> <span class="st">""</span>}<span class="op">,</span></span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>  <span class="dt">y</span><span class="op">:</span> {<span class="dt">label</span><span class="op">:</span> <span class="st">"Density"</span>}<span class="op">,</span></span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>  <span class="dt">marks</span><span class="op">:</span> [</span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Shaded Area representing the probability</span></span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">areaY</span>(curveData2<span class="op">.</span><span class="fu">filter</span>(d <span class="kw">=&gt;</span> x_val_lo <span class="op">&lt;=</span> d<span class="op">.</span><span class="at">x</span>  <span class="op">&amp;&amp;</span> d<span class="op">.</span><span class="at">x</span> <span class="op">&lt;=</span> x_val_hi )<span class="op">,</span> {</span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>      <span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span></span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a>      <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span></span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fill</span><span class="op">:</span> <span class="st">"#4682b4"</span><span class="op">,</span></span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>      <span class="dt">fillOpacity</span><span class="op">:</span> <span class="fl">0.4</span></span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>    })<span class="op">,</span></span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>    <span class="co">// The entire Normal Curve outline</span></span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">line</span>(curveData2<span class="op">,</span> {<span class="dt">x</span><span class="op">:</span> <span class="st">"x"</span><span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="st">"y"</span><span class="op">,</span> <span class="dt">stroke</span><span class="op">:</span> <span class="st">"#1f77b4"</span><span class="op">,</span> <span class="dt">strokeWidth</span><span class="op">:</span> <span class="dv">4</span>})<span class="op">,</span></span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a>    <span class="co">// Vertical line at the selected X value</span></span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([x_val_lo]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> <span class="st">"red"</span><span class="op">,</span> <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"4 4"</span>})<span class="op">,</span></span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>    Plot<span class="op">.</span><span class="fu">ruleX</span>([x_val_hi]<span class="op">,</span> {<span class="dt">stroke</span><span class="op">:</span> <span class="st">"red"</span><span class="op">,</span> <span class="dt">strokeDasharray</span><span class="op">:</span> <span class="st">"4 4"</span>})</span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a>  ]</span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-5" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+<hr>
+<section id="result-1" class="level3">
+<h3 class="anchored" data-anchor-id="result-1"><strong>Result</strong></h3>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="96" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 95;"><span id="cb6-96"><a href="#cb6-96" aria-hidden="true" tabindex="-1"></a><span class="co">// 3. Output the calculated probability</span></span>
+<span id="cb6-97"><a href="#cb6-97" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;div style="font-size: 1.4em; font-weight: bold; color: #2c3e50;"&gt;</span></span>
+<span id="cb6-98"><a href="#cb6-98" aria-hidden="true" tabindex="-1"></a><span class="vs">  P(</span><span class="sc">${</span>x_val_lo<span class="sc">}</span><span class="vs"> ≤ X ≤ </span><span class="sc">${</span>x_val_hi<span class="sc">}</span><span class="vs">) = </span><span class="sc">${</span>probability2<span class="op">.</span><span class="fu">toFixed</span>(<span class="dv">4</span>)<span class="sc">}</span></span>
+<span id="cb6-99"><a href="#cb6-99" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/div&gt;`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-6" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</section>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb7" data-startfrom="109" data-source-offset="-85"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 108;"><span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">normalPDF</span>(x<span class="op">,</span> mu<span class="op">,</span> sigma) {</span>
+<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> (<span class="dv">1</span> <span class="op">/</span> (sigma <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="dv">2</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="cn">PI</span>))) <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">exp</span>(<span class="op">-</span><span class="fl">0.5</span> <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">pow</span>((x <span class="op">-</span> mu) <span class="op">/</span> sigma<span class="op">,</span> <span class="dv">2</span>))<span class="op">;</span></span>
+<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a><span class="co">// Error Function (erf) approximation for Cumulative Distribution Function (CDF)</span></span>
+<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">erf</span>(x) {</span>
+<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> a1 <span class="op">=</span>  <span class="fl">0.254829592</span><span class="op">;</span></span>
+<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> a2 <span class="op">=</span> <span class="op">-</span><span class="fl">0.284496736</span><span class="op">;</span></span>
+<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> a3 <span class="op">=</span>  <span class="fl">1.421413741</span><span class="op">;</span></span>
+<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> a4 <span class="op">=</span> <span class="op">-</span><span class="fl">1.453152027</span><span class="op">;</span></span>
+<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> a5 <span class="op">=</span>  <span class="fl">1.061405429</span><span class="op">;</span></span>
+<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> p  <span class="op">=</span>  <span class="fl">0.3275911</span><span class="op">;</span></span>
+<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> sign <span class="op">=</span> (x <span class="op">&lt;</span> <span class="dv">0</span>) <span class="op">?</span> <span class="op">-</span><span class="dv">1</span> <span class="op">:</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> absX <span class="op">=</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">abs</span>(x)<span class="op">;</span></span>
+<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> t <span class="op">=</span> <span class="fl">1.0</span> <span class="op">/</span> (<span class="fl">1.0</span> <span class="op">+</span> p <span class="op">*</span> absX)<span class="op">;</span></span>
+<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> y <span class="op">=</span> <span class="fl">1.0</span> <span class="op">-</span> (((((a5 <span class="op">*</span> t <span class="op">+</span> a4) <span class="op">*</span> t) <span class="op">+</span> a3) <span class="op">*</span> t <span class="op">+</span> a2) <span class="op">*</span> t <span class="op">+</span> a1) <span class="op">*</span> t <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">exp</span>(<span class="op">-</span>absX <span class="op">*</span> absX)<span class="op">;</span></span>
+<span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> sign <span class="op">*</span> y<span class="op">;</span></span>
+<span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a><span class="co">// Normal Cumulative Distribution Function (CDF)</span></span>
+<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a><span class="kw">function</span> <span class="fu">normalCDF</span>(x<span class="op">,</span> mu<span class="op">,</span> sigma) {</span>
+<span id="cb7-133"><a href="#cb7-133" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fl">0.5</span> <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> <span class="fu">erf</span>((x <span class="op">-</span> mu) <span class="op">/</span> (sigma <span class="op">*</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">sqrt</span>(<span class="dv">2</span>))))<span class="op">;</span></span>
+<span id="cb7-134"><a href="#cb7-134" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-135"><a href="#cb7-135" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a><span class="co">// Generate coordinate points to draw the curve smoothly</span></span>
+<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a>curveData <span class="op">=</span> {</span>
+<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> points <span class="op">=</span> []<span class="op">;</span></span>
+<span id="cb7-139"><a href="#cb7-139" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> minX <span class="op">=</span> mean <span class="op">-</span> <span class="dv">4</span> <span class="op">*</span> sd<span class="op">;</span></span>
+<span id="cb7-140"><a href="#cb7-140" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> maxX <span class="op">=</span> mean <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> sd<span class="op">;</span></span>
+<span id="cb7-141"><a href="#cb7-141" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> steps <span class="op">=</span> <span class="dv">200</span><span class="op">;</span></span>
+<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> stepSize <span class="op">=</span> (maxX <span class="op">-</span> minX) <span class="op">/</span> steps<span class="op">;</span></span>
+<span id="cb7-143"><a href="#cb7-143" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;=</span> steps<span class="op">;</span> i<span class="op">++</span>) {</span>
+<span id="cb7-145"><a href="#cb7-145" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> currentX <span class="op">=</span> minX <span class="op">+</span> i <span class="op">*</span> stepSize<span class="op">;</span></span>
+<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a>    points<span class="op">.</span><span class="fu">push</span>({ <span class="dt">x</span><span class="op">:</span> currentX<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="fu">normalPDF</span>(currentX<span class="op">,</span> mean<span class="op">,</span> sd) })<span class="op">;</span></span>
+<span id="cb7-147"><a href="#cb7-147" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> points<span class="op">;</span></span>
+<span id="cb7-149"><a href="#cb7-149" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-150"><a href="#cb7-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-151"><a href="#cb7-151" aria-hidden="true" tabindex="-1"></a><span class="co">// Calculate the final probability output dynamically</span></span>
+<span id="cb7-152"><a href="#cb7-152" aria-hidden="true" tabindex="-1"></a>probability <span class="op">=</span> {</span>
+<span id="cb7-153"><a href="#cb7-153" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> pBelow <span class="op">=</span> <span class="fu">normalCDF</span>(x_val<span class="op">,</span> mean<span class="op">,</span> sd)<span class="op">;</span></span>
+<span id="cb7-154"><a href="#cb7-154" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> direction <span class="op">===</span> <span class="st">"Below (≤)"</span> <span class="op">?</span> pBelow <span class="op">:</span> <span class="dv">1</span> <span class="op">-</span> pBelow<span class="op">;</span></span>
+<span id="cb7-155"><a href="#cb7-155" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-156"><a href="#cb7-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-157"><a href="#cb7-157" aria-hidden="true" tabindex="-1"></a>curveData2 <span class="op">=</span> {</span>
+<span id="cb7-158"><a href="#cb7-158" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> points <span class="op">=</span> []<span class="op">;</span></span>
+<span id="cb7-159"><a href="#cb7-159" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> minX <span class="op">=</span> mean2 <span class="op">-</span> <span class="dv">4</span> <span class="op">*</span> sd2<span class="op">;</span></span>
+<span id="cb7-160"><a href="#cb7-160" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> maxX <span class="op">=</span> mean2 <span class="op">+</span> <span class="dv">4</span> <span class="op">*</span> sd2<span class="op">;</span></span>
+<span id="cb7-161"><a href="#cb7-161" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> steps <span class="op">=</span> <span class="dv">200</span><span class="op">;</span></span>
+<span id="cb7-162"><a href="#cb7-162" aria-hidden="true" tabindex="-1"></a>  <span class="kw">const</span> stepSize <span class="op">=</span> (maxX <span class="op">-</span> minX) <span class="op">/</span> steps<span class="op">;</span></span>
+<span id="cb7-163"><a href="#cb7-163" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-164"><a href="#cb7-164" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (<span class="kw">let</span> i <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> i <span class="op">&lt;=</span> steps<span class="op">;</span> i<span class="op">++</span>) {</span>
+<span id="cb7-165"><a href="#cb7-165" aria-hidden="true" tabindex="-1"></a>    <span class="kw">let</span> currentX <span class="op">=</span> minX <span class="op">+</span> i <span class="op">*</span> stepSize<span class="op">;</span></span>
+<span id="cb7-166"><a href="#cb7-166" aria-hidden="true" tabindex="-1"></a>    points<span class="op">.</span><span class="fu">push</span>({ <span class="dt">x</span><span class="op">:</span> currentX<span class="op">,</span> <span class="dt">y</span><span class="op">:</span> <span class="fu">normalPDF</span>(currentX<span class="op">,</span> mean2<span class="op">,</span> sd2) })<span class="op">;</span></span>
+<span id="cb7-167"><a href="#cb7-167" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-168"><a href="#cb7-168" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> points<span class="op">;</span></span>
+<span id="cb7-169"><a href="#cb7-169" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-170"><a href="#cb7-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-171"><a href="#cb7-171" aria-hidden="true" tabindex="-1"></a>probability2 <span class="op">=</span> {</span>
+<span id="cb7-172"><a href="#cb7-172" aria-hidden="true" tabindex="-1"></a>   <span class="kw">const</span> p2lo <span class="op">=</span> <span class="fu">normalCDF</span>(x_val_lo<span class="op">,</span> mean<span class="op">,</span> sd)<span class="op">;</span></span>
+<span id="cb7-173"><a href="#cb7-173" aria-hidden="true" tabindex="-1"></a>   <span class="kw">const</span> p2hi <span class="op">=</span> <span class="fu">normalCDF</span>(x_val_hi<span class="op">,</span> mean<span class="op">,</span> sd)<span class="op">;</span></span>
+<span id="cb7-174"><a href="#cb7-174" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> p2hi <span class="op">-</span> p2lo<span class="op">;</span></span>
+<span id="cb7-175"><a href="#cb7-175" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-7-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-7-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-7-3" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-7-4" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-7-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-7-6" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-7-7" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+
+</main>
+<!-- /main column -->
+<script type="ojs-module-contents">
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIDEuIFVzZXIgSW5wdXRzXHJcbnZpZXdvZiBtZWFuID0gSW5wdXRzLm51bWJlcih7bGFiZWw6IFwiTWVhbiAozrwpXCIsIHZhbHVlOiAwLCBzdGVwOiAwLjF9KTtcclxudmlld29mIHNkID0gSW5wdXRzLm51bWJlcih7bGFiZWw6IFwiU3RkLiBEZXYuICjPgylcIiwgdmFsdWU6IDEsIHN0ZXA6IDAuMSwgbWluOiAwLjAwMDAwMX0pO1xyXG52aWV3b2YgZGlyZWN0aW9uID0gSW5wdXRzLnJhZGlvKFtcIkJlbG93ICjiiaQpXCIsIFwiQWJvdmUgKOKJpSlcIl0sIHtsYWJlbDogXCJEaXJlY3Rpb25cIiwgdmFsdWU6IFwiQmVsb3cgKOKJpClcIn0pO1xyXG52aWV3b2YgeF92YWwgPSBJbnB1dHMubnVtYmVyKHtsYWJlbDogXCJYIHZhbHVlXCIsIHZhbHVlOiAwLCBzdGVwOiAwLjAxfSk7XHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIDIuIERpc3BsYXkgdGhlIEludGVyYWN0aXZlIFBsb3RcclxuUGxvdC5wbG90KHtcclxuICBncmlkOiB0cnVlLFxyXG4gIHg6IHtkb21haW46IFttZWFuIC0gNCAqIHNkLCBtZWFuICsgNCAqIHNkXSwgbGFiZWw6IFwiXCJ9LFxyXG4gIHk6IHtsYWJlbDogXCJEZW5zaXR5XCJ9LFxyXG4gIG1hcmtzOiBbXHJcbiAgICAvLyBTaGFkZWQgQXJlYSByZXByZXNlbnRpbmcgdGhlIHByb2JhYmlsaXR5XHJcbiAgICBQbG90LmFyZWFZKGN1cnZlRGF0YS5maWx0ZXIoZCA9PiBkaXJlY3Rpb24gPT09IFwiQmVsb3cgKOKJpClcIiA/IGQueCA8PSB4X3ZhbCA6IGQueCA+PSB4X3ZhbCksIHtcclxuICAgICAgeDogXCJ4XCIsXHJcbiAgICAgIHk6IFwieVwiLFxyXG4gICAgICBmaWxsOiBcIiM0NjgyYjRcIixcclxuICAgICAgZmlsbE9wYWNpdHk6IDAuNFxyXG4gICAgfSksXHJcbiAgICAvLyBUaGUgZW50aXJlIE5vcm1hbCBDdXJ2ZSBvdXRsaW5lXHJcbiAgICBQbG90LmxpbmUoY3VydmVEYXRhLCB7eDogXCJ4XCIsIHk6IFwieVwiLCBzdHJva2U6IFwiIzFmNzdiNFwiLCBzdHJva2VXaWR0aDogNH0pLFxyXG4gICAgLy8gVmVydGljYWwgbGluZSBhdCB0aGUgc2VsZWN0ZWQgWCB2YWx1ZVxyXG4gICAgUGxvdC5ydWxlWChbeF92YWxdLCB7c3Ryb2tlOiBcInJlZFwiLCBzdHJva2VEYXNoYXJyYXk6IFwiNCA0XCJ9KVxyXG4gIF1cclxufSlcclxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0zIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiLy8gMy4gT3V0cHV0IHRoZSBjYWxjdWxhdGVkIHByb2JhYmlsaXR5XHJcbmh0bWxgPGRpdiBzdHlsZT1cImZvbnQtc2l6ZTogMS40ZW07IGZvbnQtd2VpZ2h0OiBib2xkOyBjb2xvcjogIzJjM2U1MDtcIj5cclxuICBQKFggJHtkaXJlY3Rpb24gPT09IFwiQmVsb3cgKOKJpClcIiA/IFwi4omkXCIgOiBcIuKJpVwifSAke3hfdmFsfSkgPSAke3Byb2JhYmlsaXR5LnRvRml4ZWQoNCl9XHJcbjwvZGl2PmBcclxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC00IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiLy8gMS4gVXNlciBJbnB1dHNcclxudmlld29mIG1lYW4yID0gSW5wdXRzLm51bWJlcih7bGFiZWw6IFwiTWVhbiAozrwpXCIsIHZhbHVlOiAwLCBzdGVwOiAwLjF9KTtcclxudmlld29mIHNkMiA9IElucHV0cy5udW1iZXIoe2xhYmVsOiBcIlN0ZC4gRGV2LiAoz4MpXCIsIHZhbHVlOiAxLCBzdGVwOiAwLjEsIG1pbjogMC4wMDAwMDF9KTtcclxudmlld29mIHhfdmFsX2xvID0gSW5wdXRzLm51bWJlcih7bGFiZWw6IFwiTG93ZXIgTGltaXRcIiwgdmFsdWU6IDAsIHN0ZXA6IDAuMDF9KTtcclxudmlld29mIHhfdmFsX2hpID0gSW5wdXRzLm51bWJlcih7bGFiZWw6IFwiVXBwZXIgTGltaXRcIiwgdmFsdWU6IDEsIHN0ZXA6IDAuMDF9KTtcclxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC01IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoiLy8gMi4gRGlzcGxheSB0aGUgSW50ZXJhY3RpdmUgUGxvdFxyXG5QbG90LnBsb3Qoe1xyXG4gIGdyaWQ6IHRydWUsXHJcbiAgeDoge2RvbWFpbjogW21lYW4yIC0gNCAqIHNkMiwgbWVhbjIgKyA0ICogc2QyXSwgbGFiZWw6IFwiXCJ9LFxyXG4gIHk6IHtsYWJlbDogXCJEZW5zaXR5XCJ9LFxyXG4gIG1hcmtzOiBbXHJcbiAgICAvLyBTaGFkZWQgQXJlYSByZXByZXNlbnRpbmcgdGhlIHByb2JhYmlsaXR5XHJcbiAgICBQbG90LmFyZWFZKGN1cnZlRGF0YTIuZmlsdGVyKGQgPT4geF92YWxfbG8gPD0gZC54ICAmJiBkLnggPD0geF92YWxfaGkgKSwge1xyXG4gICAgICB4OiBcInhcIixcclxuICAgICAgeTogXCJ5XCIsXHJcbiAgICAgIGZpbGw6IFwiIzQ2ODJiNFwiLFxyXG4gICAgICBmaWxsT3BhY2l0eTogMC40XHJcbiAgICB9KSxcclxuICAgIC8vIFRoZSBlbnRpcmUgTm9ybWFsIEN1cnZlIG91dGxpbmVcclxuICAgIFBsb3QubGluZShjdXJ2ZURhdGEyLCB7eDogXCJ4XCIsIHk6IFwieVwiLCBzdHJva2U6IFwiIzFmNzdiNFwiLCBzdHJva2VXaWR0aDogNH0pLFxyXG4gICAgLy8gVmVydGljYWwgbGluZSBhdCB0aGUgc2VsZWN0ZWQgWCB2YWx1ZVxyXG4gICAgUGxvdC5ydWxlWChbeF92YWxfbG9dLCB7c3Ryb2tlOiBcInJlZFwiLCBzdHJva2VEYXNoYXJyYXk6IFwiNCA0XCJ9KSxcclxuICAgIFBsb3QucnVsZVgoW3hfdmFsX2hpXSwge3N0cm9rZTogXCJyZWRcIiwgc3Ryb2tlRGFzaGFycmF5OiBcIjQgNFwifSlcclxuICBdXHJcbn0pXHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIDMuIE91dHB1dCB0aGUgY2FsY3VsYXRlZCBwcm9iYWJpbGl0eVxyXG5odG1sYDxkaXYgc3R5bGU9XCJmb250LXNpemU6IDEuNGVtOyBmb250LXdlaWdodDogYm9sZDsgY29sb3I6ICMyYzNlNTA7XCI+XHJcbiAgUCgke3hfdmFsX2xvfSDiiaQgWCDiiaQgJHt4X3ZhbF9oaX0pID0gJHtwcm9iYWJpbGl0eTIudG9GaXhlZCg0KX1cclxuPC9kaXY+YFxyXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTciLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiIvLyA0LiBNYXRoZW1hdGljYWwgSGVscGVyIEZ1bmN0aW9uc1xyXG5cclxuLy8gTm9ybWFsIFByb2JhYmlsaXR5IERlbnNpdHkgRnVuY3Rpb24gKFBERilcclxuZnVuY3Rpb24gbm9ybWFsUERGKHgsIG11LCBzaWdtYSkge1xyXG4gIHJldHVybiAoMSAvIChzaWdtYSAqIE1hdGguc3FydCgyICogTWF0aC5QSSkpKSAqIE1hdGguZXhwKC0wLjUgKiBNYXRoLnBvdygoeCAtIG11KSAvIHNpZ21hLCAyKSk7XHJcbn1cclxuXHJcbi8vIEVycm9yIEZ1bmN0aW9uIChlcmYpIGFwcHJveGltYXRpb24gZm9yIEN1bXVsYXRpdmUgRGlzdHJpYnV0aW9uIEZ1bmN0aW9uIChDREYpXHJcbmZ1bmN0aW9uIGVyZih4KSB7XHJcbiAgY29uc3QgYTEgPSAgMC4yNTQ4Mjk1OTI7XHJcbiAgY29uc3QgYTIgPSAtMC4yODQ0OTY3MzY7XHJcbiAgY29uc3QgYTMgPSAgMS40MjE0MTM3NDE7XHJcbiAgY29uc3QgYTQgPSAtMS40NTMxNTIwMjc7XHJcbiAgY29uc3QgYTUgPSAgMS4wNjE0MDU0Mjk7XHJcbiAgY29uc3QgcCAgPSAgMC4zMjc1OTExO1xyXG5cclxuICBjb25zdCBzaWduID0gKHggPCAwKSA/IC0xIDogMTtcclxuICBjb25zdCBhYnNYID0gTWF0aC5hYnMoeCk7XHJcblxyXG4gIGNvbnN0IHQgPSAxLjAgLyAoMS4wICsgcCAqIGFic1gpO1xyXG4gIGNvbnN0IHkgPSAxLjAgLSAoKCgoKGE1ICogdCArIGE0KSAqIHQpICsgYTMpICogdCArIGEyKSAqIHQgKyBhMSkgKiB0ICogTWF0aC5leHAoLWFic1ggKiBhYnNYKTtcclxuXHJcbiAgcmV0dXJuIHNpZ24gKiB5O1xyXG59XHJcblxyXG4vLyBOb3JtYWwgQ3VtdWxhdGl2ZSBEaXN0cmlidXRpb24gRnVuY3Rpb24gKENERilcclxuZnVuY3Rpb24gbm9ybWFsQ0RGKHgsIG11LCBzaWdtYSkge1xyXG4gIHJldHVybiAwLjUgKiAoMSArIGVyZigoeCAtIG11KSAvIChzaWdtYSAqIE1hdGguc3FydCgyKSkpKTtcclxufVxyXG5cclxuLy8gR2VuZXJhdGUgY29vcmRpbmF0ZSBwb2ludHMgdG8gZHJhdyB0aGUgY3VydmUgc21vb3RobHlcclxuY3VydmVEYXRhID0ge1xyXG4gIGNvbnN0IHBvaW50cyA9IFtdO1xyXG4gIGNvbnN0IG1pblggPSBtZWFuIC0gNCAqIHNkO1xyXG4gIGNvbnN0IG1heFggPSBtZWFuICsgNCAqIHNkO1xyXG4gIGNvbnN0IHN0ZXBzID0gMjAwO1xyXG4gIGNvbnN0IHN0ZXBTaXplID0gKG1heFggLSBtaW5YKSAvIHN0ZXBzO1xyXG4gIFxyXG4gIGZvciAobGV0IGkgPSAwOyBpIDw9IHN0ZXBzOyBpKyspIHtcclxuICAgIGxldCBjdXJyZW50WCA9IG1pblggKyBpICogc3RlcFNpemU7XHJcbiAgICBwb2ludHMucHVzaCh7IHg6IGN1cnJlbnRYLCB5OiBub3JtYWxQREYoY3VycmVudFgsIG1lYW4sIHNkKSB9KTtcclxuICB9XHJcbiAgcmV0dXJuIHBvaW50cztcclxufVxyXG5cclxuLy8gQ2FsY3VsYXRlIHRoZSBmaW5hbCBwcm9iYWJpbGl0eSBvdXRwdXQgZHluYW1pY2FsbHlcclxucHJvYmFiaWxpdHkgPSB7XHJcbiAgY29uc3QgcEJlbG93ID0gbm9ybWFsQ0RGKHhfdmFsLCBtZWFuLCBzZCk7XHJcbiAgcmV0dXJuIGRpcmVjdGlvbiA9PT0gXCJCZWxvdyAo4omkKVwiID8gcEJlbG93IDogMSAtIHBCZWxvdztcclxufVxyXG5cclxuY3VydmVEYXRhMiA9IHtcclxuICBjb25zdCBwb2ludHMgPSBbXTtcclxuICBjb25zdCBtaW5YID0gbWVhbjIgLSA0ICogc2QyO1xyXG4gIGNvbnN0IG1heFggPSBtZWFuMiArIDQgKiBzZDI7XHJcbiAgY29uc3Qgc3RlcHMgPSAyMDA7XHJcbiAgY29uc3Qgc3RlcFNpemUgPSAobWF4WCAtIG1pblgpIC8gc3RlcHM7XHJcbiAgXHJcbiAgZm9yIChsZXQgaSA9IDA7IGkgPD0gc3RlcHM7IGkrKykge1xyXG4gICAgbGV0IGN1cnJlbnRYID0gbWluWCArIGkgKiBzdGVwU2l6ZTtcclxuICAgIHBvaW50cy5wdXNoKHsgeDogY3VycmVudFgsIHk6IG5vcm1hbFBERihjdXJyZW50WCwgbWVhbjIsIHNkMikgfSk7XHJcbiAgfVxyXG4gIHJldHVybiBwb2ludHM7XHJcbn1cclxuXHJcbnByb2JhYmlsaXR5MiA9IHtcclxuICAgY29uc3QgcDJsbyA9IG5vcm1hbENERih4X3ZhbF9sbywgbWVhbiwgc2QpO1xyXG4gICBjb25zdCBwMmhpID0gbm9ybWFsQ0RGKHhfdmFsX2hpLCBtZWFuLCBzZCk7XHJcbiAgIHJldHVybiBwMmhpIC0gcDJsbztcclxufVxyXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ21lYW4nKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnc2QnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnZGlyZWN0aW9uJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3hfdmFsJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ21lYW4yJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3NkMicpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCd4X3ZhbF9sbycpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCd4X3ZhbF9oaScpIn1dfQ==
+</script>
+<script type="module">
+if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
+window._ojs.paths.runtimeToDoc = "../../..";
+window._ojs.paths.runtimeToRoot = "../../..";
+window._ojs.paths.docToRoot = "";
+window._ojs.selfContained = false;
+window._ojs.runtime.interpretFromScriptTags();
+</script>
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp('/' + window.location.host + '/');
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

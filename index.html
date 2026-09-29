@@ -75,6 +75,35 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script type="module" src="index_files/libs/quarto-ojs/quarto-ojs-runtime.js"></script>
 <link href="index_files/libs/quarto-ojs/quarto-ojs.css" rel="stylesheet">
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -93,6 +122,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#full-population" id="toc-full-population" class="nav-link" data-scroll-target="#full-population">Full Population</a>
   <ul class="collapse">
   <li><a href="#simple-random-sample" id="toc-simple-random-sample" class="nav-link" data-scroll-target="#simple-random-sample">Simple Random Sample</a></li>
+  <li><a href="#systematic-sampling" id="toc-systematic-sampling" class="nav-link" data-scroll-target="#systematic-sampling">Systematic Sampling</a></li>
   </ul></li>
   <li><a href="#grouped-by-ages" id="toc-grouped-by-ages" class="nav-link" data-scroll-target="#grouped-by-ages">Grouped by Ages</a>
   <ul class="collapse">
@@ -102,6 +132,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <ul class="collapse">
   <li><a href="#cluster-sampling" id="toc-cluster-sampling" class="nav-link" data-scroll-target="#cluster-sampling">Cluster Sampling</a></li>
   </ul></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
   </ul>
 </nav>
 </div>
@@ -130,6 +161,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="introduction" class="level2">
 <h2 class="anchored" data-anchor-id="introduction">Introduction</h2>
+<details>
+<summary>
+<strong>Video Introduction</strong>
+</summary>
+<iframe src="video_html/statsville_story.html" width="80%" height="600px" style="border:none;">
+</iframe>
+</details>
 <p><em>Statsville</em> is a quaint fictional hamlet that is nestled in the foothills of the <em>Regression Mountains</em> with a beautiful view of <em>Lake Median</em>. The <strong>population</strong> is quite small as only <strong>100 residents</strong> between the ages of 13 and 59 live in <em>Statsville</em>. The layout of the town is a basic square grid with 20 unique roads – <em>conveniently</em> named with first letters A to T.</p>
 <p>The <em>Mean Diner</em> is looking to increase business and has decided to start advertising on social media. Before investing into their campaign, management wishes to know what sort of effort is required. In particular, management needs to know how many social media apps each resident typically uses so they can spend their advertising dollars wisely.</p>
 <div style="float: right; margin-left: 15px;">
@@ -164,20 +202,28 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="simple-random-sample" class="level3">
 <h3 class="anchored" data-anchor-id="simple-random-sample">Simple Random Sample</h3>
-<p>When little knowledge is known about the distribution of the population, the standard approach is to use a <strong>Simple Random Sample</strong>. A simple random sample is like playing a game of bingo or the lottery – each person (or number) has an equal chance of being selected. In lieu of a bingo cage or lottery spinner, we can use the computer to generate the sample. Use the below random number generator to select residents (by their ID number) to be sampled.</p>
+<p>When little knowledge is known about the distribution of the population, the standard approach is to use a <strong>Simple Random Sample</strong>. A simple random sample is like playing a game of bingo or the lottery – each person (or number) has an equal chance of being selected. In lieu of a bingo cage or lottery spinner, we can use the computer to generate the sample.</p>
+<details>
+<summary>
+<strong>Simple Random Sample Video</strong>
+</summary>
+<iframe src="video_html/simple_random_sampling.html" width="80%" height="600px" style="border:none;">
+</iframe>
+</details>
+<p>Use the below random number generator to select residents (by their ID number) to be sampled.</p>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="65" data-source-offset="-35"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 64;"><span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>viewof count <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">number</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span> {</span>
-<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span></span>
-<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Sample size:"</span></span>
-<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>viewof runButton <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate Simple Random Sample"</span>)</span>
-<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;div style="display: flex; flex-direction: column; gap: 20px;"&gt;</span></span>
-<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a><span class="vs">  </span><span class="sc">${</span>viewof count<span class="sc">}</span></span>
-<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a><span class="vs">  </span><span class="sc">${</span>viewof runButton<span class="sc">}</span></span>
-<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/div&gt;`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb1" data-startfrom="82" data-source-offset="-35"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 81;"><span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>viewof count <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">number</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">100</span>]<span class="op">,</span> {</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">10</span><span class="op">,</span></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Sample size:"</span></span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>viewof runButton <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate Simple Random Sample"</span>)</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;div style="display: flex; flex-direction: column; gap: 20px;"&gt;</span></span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a><span class="vs">  </span><span class="sc">${</span>viewof count<span class="sc">}</span></span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a><span class="vs">  </span><span class="sc">${</span>viewof runButton<span class="sc">}</span></span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/div&gt;`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-1-1" data-nodetype="declaration">
@@ -202,13 +248,13 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <p><br> <!-- Direct vertical spacing --></p>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="86" data-source-offset="-83"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 85;"><span id="cb2-86"><a href="#cb2-86" aria-hidden="true" tabindex="-1"></a>people <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({ <span class="dt">length</span><span class="op">:</span> <span class="dv">100</span> }<span class="op">,</span> (_<span class="op">,</span> index) <span class="kw">=&gt;</span> index <span class="op">+</span> <span class="dv">1</span>)<span class="op">;</span></span>
-<span id="cb2-87"><a href="#cb2-87" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-88"><a href="#cb2-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-89"><a href="#cb2-89" aria-hidden="true" tabindex="-1"></a>randomSample <span class="op">=</span> {</span>
-<span id="cb2-90"><a href="#cb2-90" aria-hidden="true" tabindex="-1"></a>   runButton<span class="op">;</span></span>
-<span id="cb2-91"><a href="#cb2-91" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> d3<span class="op">.</span><span class="fu">shuffle</span>([<span class="op">...</span>people])<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> count)<span class="op">;</span></span>
-<span id="cb2-92"><a href="#cb2-92" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb2" data-startfrom="103" data-source-offset="-83"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 102;"><span id="cb2-103"><a href="#cb2-103" aria-hidden="true" tabindex="-1"></a>people <span class="op">=</span> <span class="bu">Array</span><span class="op">.</span><span class="fu">from</span>({ <span class="dt">length</span><span class="op">:</span> <span class="dv">100</span> }<span class="op">,</span> (_<span class="op">,</span> index) <span class="kw">=&gt;</span> index <span class="op">+</span> <span class="dv">1</span>)<span class="op">;</span></span>
+<span id="cb2-104"><a href="#cb2-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-105"><a href="#cb2-105" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-106"><a href="#cb2-106" aria-hidden="true" tabindex="-1"></a>randomSample <span class="op">=</span> {</span>
+<span id="cb2-107"><a href="#cb2-107" aria-hidden="true" tabindex="-1"></a>   runButton<span class="op">;</span></span>
+<span id="cb2-108"><a href="#cb2-108" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> d3<span class="op">.</span><span class="fu">shuffle</span>([<span class="op">...</span>people])<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> count)<span class="op">;</span></span>
+<span id="cb2-109"><a href="#cb2-109" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
 <div id="ojs-cell-2-1" data-nodetype="declaration">
@@ -225,16 +271,79 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="96" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 95;"><span id="cb3-96"><a href="#cb3-96" aria-hidden="true" tabindex="-1"></a><span class="co">// 3. Display the numbers beautifully</span></span>
-<span id="cb3-97"><a href="#cb3-97" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb3-98"><a href="#cb3-98" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (runButton <span class="op">===</span> <span class="dv">0</span>) {</span>
-<span id="cb3-99"><a href="#cb3-99" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Click the button to generate a sample**`</span><span class="op">;</span></span>
-<span id="cb3-100"><a href="#cb3-100" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb3-101"><a href="#cb3-101" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Your Sample:** Persons </span><span class="sc">${</span>randomSample<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> a <span class="op">-</span> b)<span class="op">.</span><span class="fu">join</span>(<span class="st">",  "</span>)<span class="sc">}</span><span class="vs">`</span></span>
-<span id="cb3-102"><a href="#cb3-102" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb3-103"><a href="#cb3-103" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb3" data-startfrom="113" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 112;"><span id="cb3-113"><a href="#cb3-113" aria-hidden="true" tabindex="-1"></a><span class="co">// 3. Display the numbers beautifully</span></span>
+<span id="cb3-114"><a href="#cb3-114" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb3-115"><a href="#cb3-115" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (runButton <span class="op">===</span> <span class="dv">0</span>) {</span>
+<span id="cb3-116"><a href="#cb3-116" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Click the button to generate a sample**`</span><span class="op">;</span></span>
+<span id="cb3-117"><a href="#cb3-117" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb3-118"><a href="#cb3-118" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Your Sample:** Persons </span><span class="sc">${</span>randomSample<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> a <span class="op">-</span> b)<span class="op">.</span><span class="fu">join</span>(<span class="st">",  "</span>)<span class="sc">}</span><span class="vs">`</span></span>
+<span id="cb3-119"><a href="#cb3-119" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb3-120"><a href="#cb3-120" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div id="ojs-cell-3" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</section>
+<section id="systematic-sampling" class="level3">
+<h3 class="anchored" data-anchor-id="systematic-sampling">Systematic Sampling</h3>
+<p>Systematic sampling is a technique where a researchers select members of the target population at regular or fixed intervals after choosing a random starting point. As an example, you may sample every <span class="math inline">\(n\)</span>th person.</p>
+<details>
+<summary>
+<strong>Systematic Sampling Video</strong>
+</summary>
+<iframe src="video_html/systematic_sampling.html" width="80%" height="600px" style="border:none;">
+</iframe>
+</details>
+<p>Use may use the random number generator to randomly select one of the first 10 residents to start the systemic sampling procedure.</p>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb4" data-startfrom="145" data-source-offset="-35"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 144;"><span id="cb4-145"><a href="#cb4-145" aria-hidden="true" tabindex="-1"></a>viewof rollDie <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"🎲 Roll 10-sided Die"</span>)</span>
+<span id="cb4-146"><a href="#cb4-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-147"><a href="#cb4-147" aria-hidden="true" tabindex="-1"></a><span class="fu">html</span><span class="vs">`&lt;div style="display: flex; flex-direction: column; gap: 20px;"&gt;</span></span>
+<span id="cb4-148"><a href="#cb4-148" aria-hidden="true" tabindex="-1"></a><span class="vs">  </span><span class="sc">${</span>viewof rollDie<span class="sc">}</span></span>
+<span id="cb4-149"><a href="#cb4-149" aria-hidden="true" tabindex="-1"></a><span class="vs">&lt;/div&gt;`</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-4-2" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+<p><br> <!-- Direct vertical spacing --></p>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb5" data-startfrom="155" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 154;"><span id="cb5-155"><a href="#cb5-155" aria-hidden="true" tabindex="-1"></a><span class="co">// 3. Shuffle and slice to get your random sample</span></span>
+<span id="cb5-156"><a href="#cb5-156" aria-hidden="true" tabindex="-1"></a><span class="co">// 1. Define your data array</span></span>
+<span id="cb5-157"><a href="#cb5-157" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-158"><a href="#cb5-158" aria-hidden="true" tabindex="-1"></a>randomDie <span class="op">=</span> {</span>
+<span id="cb5-159"><a href="#cb5-159" aria-hidden="true" tabindex="-1"></a>   rollDie<span class="op">;</span></span>
+<span id="cb5-160"><a href="#cb5-160" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> <span class="bu">Math</span><span class="op">.</span><span class="fu">floor</span>(<span class="bu">Math</span><span class="op">.</span><span class="fu">random</span>() <span class="op">*</span> <span class="dv">10</span>) <span class="op">+</span> <span class="dv">1</span><span class="op">;</span></span>
+<span id="cb5-161"><a href="#cb5-161" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-5" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="166" data-source-offset="0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 165;"><span id="cb6-166"><a href="#cb6-166" aria-hidden="true" tabindex="-1"></a><span class="co">// 3. Display the numbers beautifully</span></span>
+<span id="cb6-167"><a href="#cb6-167" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb6-168"><a href="#cb6-168" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (rollDie <span class="op">===</span> <span class="dv">0</span>) {</span>
+<span id="cb6-169"><a href="#cb6-169" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Click the button to roll the die**`</span><span class="op">;</span></span>
+<span id="cb6-170"><a href="#cb6-170" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb6-171"><a href="#cb6-171" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Your Die Roll:** Person </span><span class="sc">${</span>randomDie<span class="sc">}</span><span class="vs">`</span></span>
+<span id="cb6-172"><a href="#cb6-172" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb6-173"><a href="#cb6-173" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div id="ojs-cell-6" data-nodetype="expression">
 
 </div>
 </div>
@@ -252,292 +361,300 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 <section id="stratified-sampling" class="level3">
 <h3 class="anchored" data-anchor-id="stratified-sampling">Stratified Sampling</h3>
-<p>Here the population is grouped by age and a quick look shows that distribution of social media apps is not the same across all age groups (visually it appears residents in their 20s have more social media apps than residents in their 50s). It is possible that a simple random sample would not truly be representative of the population. We can use these groupings and the random number generator below to build a <strong>Stratified Sample</strong>.</p>
-<div class="sourceCode cell-code hidden" id="cb4" data-startfrom="122" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 121;"><span id="cb4-122"><a href="#cb4-122" aria-hidden="true" tabindex="-1"></a>viewof teen_count <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">number</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">20</span>]<span class="op">,</span> {</span>
-<span id="cb4-123"><a href="#cb4-123" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
-<span id="cb4-124"><a href="#cb4-124" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb4-125"><a href="#cb4-125" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Teenager Sample size:"</span></span>
-<span id="cb4-126"><a href="#cb4-126" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb4-127"><a href="#cb4-127" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-128"><a href="#cb4-128" aria-hidden="true" tabindex="-1"></a>viewof runTeens <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate Sample of Teenagers"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<p>Here the population is grouped by age and a quick look shows that distribution of social media apps is not the same across all age groups (visually it appears residents in their 20s have more social media apps than residents in their 50s). It is possible that a simple random sample would not truly be representative of the population.</p>
+<details>
+<summary>
+<strong>Stratified Sampling Video</strong>
+</summary>
+<iframe src="video_html/stratified_sampling.html" width="80%" height="600px" style="border:none;">
+</iframe>
+</details>
+<p>We can use these groupings and the random number generator below to build a <strong>Stratified Sample</strong>.</p>
+<div class="sourceCode cell-code hidden" id="cb7" data-startfrom="201" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 200;"><span id="cb7-201"><a href="#cb7-201" aria-hidden="true" tabindex="-1"></a>viewof teen_count <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">number</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">20</span>]<span class="op">,</span> {</span>
+<span id="cb7-202"><a href="#cb7-202" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb7-203"><a href="#cb7-203" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb7-204"><a href="#cb7-204" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Teenager Sample size:"</span></span>
+<span id="cb7-205"><a href="#cb7-205" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb7-206"><a href="#cb7-206" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-207"><a href="#cb7-207" aria-hidden="true" tabindex="-1"></a>viewof runTeens <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate Sample of Teenagers"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="ojs-cell-4-1" data-nodetype="declaration">
-
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="ojs-cell-4-2" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code hidden" id="cb5" data-startfrom="134" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 133;"><span id="cb5-134"><a href="#cb5-134" aria-hidden="true" tabindex="-1"></a>teens <span class="op">=</span> [<span class="dv">1</span><span class="op">,</span><span class="dv">9</span><span class="op">,</span><span class="dv">12</span><span class="op">,</span><span class="dv">13</span><span class="op">,</span><span class="dv">17</span><span class="op">,</span><span class="dv">24</span><span class="op">,</span><span class="dv">25</span><span class="op">,</span><span class="dv">27</span><span class="op">,</span><span class="dv">34</span><span class="op">,</span><span class="dv">41</span><span class="op">,</span><span class="dv">43</span><span class="op">,</span><span class="dv">54</span><span class="op">,</span><span class="dv">67</span><span class="op">,</span><span class="dv">68</span><span class="op">,</span><span class="dv">73</span><span class="op">,</span><span class="dv">74</span><span class="op">,</span><span class="dv">75</span><span class="op">,</span><span class="dv">77</span><span class="op">,</span><span class="dv">88</span><span class="op">,</span><span class="dv">98</span>]</span>
-<span id="cb5-135"><a href="#cb5-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-136"><a href="#cb5-136" aria-hidden="true" tabindex="-1"></a>teenSample <span class="op">=</span> {</span>
-<span id="cb5-137"><a href="#cb5-137" aria-hidden="true" tabindex="-1"></a>   runTeens<span class="op">;</span></span>
-<span id="cb5-138"><a href="#cb5-138" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> d3<span class="op">.</span><span class="fu">shuffle</span>([<span class="op">...</span>teens])<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> teen_count)<span class="op">;</span></span>
-<span id="cb5-139"><a href="#cb5-139" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb5-140"><a href="#cb5-140" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb5-141"><a href="#cb5-141" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb5-142"><a href="#cb5-142" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (runTeens <span class="op">===</span> <span class="dv">0</span>) {</span>
-<span id="cb5-143"><a href="#cb5-143" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Click the button to generate a sample**`</span><span class="op">;</span></span>
-<span id="cb5-144"><a href="#cb5-144" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb5-145"><a href="#cb5-145" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Sample of teenagers:** Persons </span><span class="sc">${</span>teenSample<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> a <span class="op">-</span> b)<span class="op">.</span><span class="fu">join</span>(<span class="st">",  "</span>)<span class="sc">}</span><span class="vs">`</span></span>
-<span id="cb5-146"><a href="#cb5-146" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb5-147"><a href="#cb5-147" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-5-1" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-5-2" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
-<div id="ojs-cell-5-3" data-nodetype="expression">
-
-</div>
-</div>
-</div>
-</div>
-<div class="sourceCode cell-code hidden" id="cb6" data-startfrom="155" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 154;"><span id="cb6-155"><a href="#cb6-155" aria-hidden="true" tabindex="-1"></a>viewof twenty_count <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">number</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">20</span>]<span class="op">,</span> {</span>
-<span id="cb6-156"><a href="#cb6-156" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
-<span id="cb6-157"><a href="#cb6-157" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb6-158"><a href="#cb6-158" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Twenties Sample size:"</span></span>
-<span id="cb6-159"><a href="#cb6-159" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb6-160"><a href="#cb6-160" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-161"><a href="#cb6-161" aria-hidden="true" tabindex="-1"></a>viewof runTwenty <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate Sample of those in the 20s"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="ojs-cell-6-1" data-nodetype="declaration">
-
-</div>
-</div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="ojs-cell-6-2" data-nodetype="declaration">
-
-</div>
-</div>
-</div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code hidden" id="cb7" data-startfrom="167" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 166;"><span id="cb7-167"><a href="#cb7-167" aria-hidden="true" tabindex="-1"></a>twenty <span class="op">=</span> [<span class="dv">2</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">6</span><span class="op">,</span><span class="dv">10</span><span class="op">,</span><span class="dv">15</span><span class="op">,</span><span class="dv">35</span><span class="op">,</span><span class="dv">38</span><span class="op">,</span><span class="dv">44</span><span class="op">,</span><span class="dv">45</span><span class="op">,</span><span class="dv">47</span><span class="op">,</span><span class="dv">48</span><span class="op">,</span><span class="dv">55</span><span class="op">,</span><span class="dv">61</span><span class="op">,</span><span class="dv">69</span><span class="op">,</span><span class="dv">70</span><span class="op">,</span><span class="dv">78</span><span class="op">,</span><span class="dv">80</span><span class="op">,</span><span class="dv">93</span><span class="op">,</span><span class="dv">97</span><span class="op">,</span><span class="dv">100</span>]</span>
-<span id="cb7-168"><a href="#cb7-168" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-169"><a href="#cb7-169" aria-hidden="true" tabindex="-1"></a>twentySample <span class="op">=</span> {</span>
-<span id="cb7-170"><a href="#cb7-170" aria-hidden="true" tabindex="-1"></a>   runTwenty<span class="op">;</span></span>
-<span id="cb7-171"><a href="#cb7-171" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> d3<span class="op">.</span><span class="fu">shuffle</span>([<span class="op">...</span>twenty])<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> twenty_count)<span class="op">;</span></span>
-<span id="cb7-172"><a href="#cb7-172" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb7-173"><a href="#cb7-173" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-174"><a href="#cb7-174" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb7-175"><a href="#cb7-175" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (runTwenty <span class="op">===</span> <span class="dv">0</span>) {</span>
-<span id="cb7-176"><a href="#cb7-176" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Click the button to generate a sample**`</span><span class="op">;</span></span>
-<span id="cb7-177"><a href="#cb7-177" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb7-178"><a href="#cb7-178" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Sample of those in their 20s:** Persons </span><span class="sc">${</span>twentySample<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> a <span class="op">-</span> b)<span class="op">.</span><span class="fu">join</span>(<span class="st">",  "</span>)<span class="sc">}</span><span class="vs">`</span></span>
-<span id="cb7-179"><a href="#cb7-179" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb7-180"><a href="#cb7-180" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display">
-<div>
 <div id="ojs-cell-7-1" data-nodetype="declaration">
 
 </div>
 </div>
-</div>
-<div class="cell-output cell-output-display">
-<div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div id="ojs-cell-7-2" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb8" data-startfrom="213" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 212;"><span id="cb8-213"><a href="#cb8-213" aria-hidden="true" tabindex="-1"></a>teens <span class="op">=</span> [<span class="dv">1</span><span class="op">,</span><span class="dv">9</span><span class="op">,</span><span class="dv">12</span><span class="op">,</span><span class="dv">13</span><span class="op">,</span><span class="dv">17</span><span class="op">,</span><span class="dv">24</span><span class="op">,</span><span class="dv">25</span><span class="op">,</span><span class="dv">27</span><span class="op">,</span><span class="dv">34</span><span class="op">,</span><span class="dv">41</span><span class="op">,</span><span class="dv">43</span><span class="op">,</span><span class="dv">54</span><span class="op">,</span><span class="dv">67</span><span class="op">,</span><span class="dv">68</span><span class="op">,</span><span class="dv">73</span><span class="op">,</span><span class="dv">74</span><span class="op">,</span><span class="dv">75</span><span class="op">,</span><span class="dv">77</span><span class="op">,</span><span class="dv">88</span><span class="op">,</span><span class="dv">98</span>]</span>
+<span id="cb8-214"><a href="#cb8-214" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-215"><a href="#cb8-215" aria-hidden="true" tabindex="-1"></a>teenSample <span class="op">=</span> {</span>
+<span id="cb8-216"><a href="#cb8-216" aria-hidden="true" tabindex="-1"></a>   runTeens<span class="op">;</span></span>
+<span id="cb8-217"><a href="#cb8-217" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> d3<span class="op">.</span><span class="fu">shuffle</span>([<span class="op">...</span>teens])<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> teen_count)<span class="op">;</span></span>
+<span id="cb8-218"><a href="#cb8-218" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb8-219"><a href="#cb8-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-220"><a href="#cb8-220" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb8-221"><a href="#cb8-221" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (runTeens <span class="op">===</span> <span class="dv">0</span>) {</span>
+<span id="cb8-222"><a href="#cb8-222" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Click the button to generate a sample**`</span><span class="op">;</span></span>
+<span id="cb8-223"><a href="#cb8-223" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb8-224"><a href="#cb8-224" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Sample of teenagers:** Persons </span><span class="sc">${</span>teenSample<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> a <span class="op">-</span> b)<span class="op">.</span><span class="fu">join</span>(<span class="st">",  "</span>)<span class="sc">}</span><span class="vs">`</span></span>
+<span id="cb8-225"><a href="#cb8-225" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb8-226"><a href="#cb8-226" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-7-3" data-nodetype="expression">
-
-</div>
-</div>
-</div>
-</div>
-<div class="sourceCode cell-code hidden" id="cb8" data-startfrom="190" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 189;"><span id="cb8-190"><a href="#cb8-190" aria-hidden="true" tabindex="-1"></a>viewof thirty_count <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">number</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">20</span>]<span class="op">,</span> {</span>
-<span id="cb8-191"><a href="#cb8-191" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
-<span id="cb8-192"><a href="#cb8-192" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb8-193"><a href="#cb8-193" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Thirties Sample size:"</span></span>
-<span id="cb8-194"><a href="#cb8-194" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb8-195"><a href="#cb8-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-196"><a href="#cb8-196" aria-hidden="true" tabindex="-1"></a>viewof runThirty <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate Sample of those in the 30s"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div id="ojs-cell-8-1" data-nodetype="declaration">
 
 </div>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+</div>
+<div class="cell-output cell-output-display">
+<div>
 <div id="ojs-cell-8-2" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code hidden" id="cb9" data-startfrom="202" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 201;"><span id="cb9-202"><a href="#cb9-202" aria-hidden="true" tabindex="-1"></a>thirty <span class="op">=</span> [<span class="dv">3</span><span class="op">,</span><span class="dv">5</span><span class="op">,</span><span class="dv">18</span><span class="op">,</span><span class="dv">19</span><span class="op">,</span><span class="dv">23</span><span class="op">,</span><span class="dv">26</span><span class="op">,</span><span class="dv">30</span><span class="op">,</span><span class="dv">31</span><span class="op">,</span><span class="dv">32</span><span class="op">,</span><span class="dv">36</span><span class="op">,</span><span class="dv">49</span><span class="op">,</span><span class="dv">51</span><span class="op">,</span><span class="dv">53</span><span class="op">,</span><span class="dv">56</span><span class="op">,</span><span class="dv">57</span><span class="op">,</span><span class="dv">64</span><span class="op">,</span><span class="dv">83</span><span class="op">,</span><span class="dv">89</span><span class="op">,</span><span class="dv">90</span><span class="op">,</span><span class="dv">96</span>]</span>
-<span id="cb9-203"><a href="#cb9-203" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-204"><a href="#cb9-204" aria-hidden="true" tabindex="-1"></a>thirtySample <span class="op">=</span> {</span>
-<span id="cb9-205"><a href="#cb9-205" aria-hidden="true" tabindex="-1"></a>   runThirty<span class="op">;</span></span>
-<span id="cb9-206"><a href="#cb9-206" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> d3<span class="op">.</span><span class="fu">shuffle</span>([<span class="op">...</span>thirty])<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> thirty_count)<span class="op">;</span></span>
-<span id="cb9-207"><a href="#cb9-207" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb9-208"><a href="#cb9-208" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-209"><a href="#cb9-209" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb9-210"><a href="#cb9-210" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (runThirty <span class="op">===</span> <span class="dv">0</span>) {</span>
-<span id="cb9-211"><a href="#cb9-211" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Click the button to generate a sample**`</span><span class="op">;</span></span>
-<span id="cb9-212"><a href="#cb9-212" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb9-213"><a href="#cb9-213" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Sample of those in their 30s:** Persons </span><span class="sc">${</span>thirtySample<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> a <span class="op">-</span> b)<span class="op">.</span><span class="fu">join</span>(<span class="st">",  "</span>)<span class="sc">}</span><span class="vs">`</span></span>
-<span id="cb9-214"><a href="#cb9-214" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb9-215"><a href="#cb9-215" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-9-1" data-nodetype="declaration">
+<div id="ojs-cell-8-3" data-nodetype="expression">
 
 </div>
 </div>
 </div>
-<div class="cell-output cell-output-display">
-<div>
+</div>
+<div class="sourceCode cell-code hidden" id="cb9" data-startfrom="234" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 233;"><span id="cb9-234"><a href="#cb9-234" aria-hidden="true" tabindex="-1"></a>viewof twenty_count <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">number</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">20</span>]<span class="op">,</span> {</span>
+<span id="cb9-235"><a href="#cb9-235" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb9-236"><a href="#cb9-236" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb9-237"><a href="#cb9-237" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Twenties Sample size:"</span></span>
+<span id="cb9-238"><a href="#cb9-238" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb9-239"><a href="#cb9-239" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-240"><a href="#cb9-240" aria-hidden="true" tabindex="-1"></a>viewof runTwenty <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate Sample of those in the 20s"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="ojs-cell-9-1" data-nodetype="declaration">
+
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div id="ojs-cell-9-2" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb10" data-startfrom="246" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 245;"><span id="cb10-246"><a href="#cb10-246" aria-hidden="true" tabindex="-1"></a>twenty <span class="op">=</span> [<span class="dv">2</span><span class="op">,</span><span class="dv">4</span><span class="op">,</span><span class="dv">6</span><span class="op">,</span><span class="dv">10</span><span class="op">,</span><span class="dv">15</span><span class="op">,</span><span class="dv">35</span><span class="op">,</span><span class="dv">38</span><span class="op">,</span><span class="dv">44</span><span class="op">,</span><span class="dv">45</span><span class="op">,</span><span class="dv">47</span><span class="op">,</span><span class="dv">48</span><span class="op">,</span><span class="dv">55</span><span class="op">,</span><span class="dv">61</span><span class="op">,</span><span class="dv">69</span><span class="op">,</span><span class="dv">70</span><span class="op">,</span><span class="dv">78</span><span class="op">,</span><span class="dv">80</span><span class="op">,</span><span class="dv">93</span><span class="op">,</span><span class="dv">97</span><span class="op">,</span><span class="dv">100</span>]</span>
+<span id="cb10-247"><a href="#cb10-247" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-248"><a href="#cb10-248" aria-hidden="true" tabindex="-1"></a>twentySample <span class="op">=</span> {</span>
+<span id="cb10-249"><a href="#cb10-249" aria-hidden="true" tabindex="-1"></a>   runTwenty<span class="op">;</span></span>
+<span id="cb10-250"><a href="#cb10-250" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> d3<span class="op">.</span><span class="fu">shuffle</span>([<span class="op">...</span>twenty])<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> twenty_count)<span class="op">;</span></span>
+<span id="cb10-251"><a href="#cb10-251" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb10-252"><a href="#cb10-252" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-253"><a href="#cb10-253" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb10-254"><a href="#cb10-254" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (runTwenty <span class="op">===</span> <span class="dv">0</span>) {</span>
+<span id="cb10-255"><a href="#cb10-255" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Click the button to generate a sample**`</span><span class="op">;</span></span>
+<span id="cb10-256"><a href="#cb10-256" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb10-257"><a href="#cb10-257" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Sample of those in their 20s:** Persons </span><span class="sc">${</span>twentySample<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> a <span class="op">-</span> b)<span class="op">.</span><span class="fu">join</span>(<span class="st">",  "</span>)<span class="sc">}</span><span class="vs">`</span></span>
+<span id="cb10-258"><a href="#cb10-258" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb10-259"><a href="#cb10-259" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-9-3" data-nodetype="expression">
-
-</div>
-</div>
-</div>
-</div>
-<div class="sourceCode cell-code hidden" id="cb10" data-startfrom="223" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 222;"><span id="cb10-223"><a href="#cb10-223" aria-hidden="true" tabindex="-1"></a>viewof forty_count <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">number</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">20</span>]<span class="op">,</span> {</span>
-<span id="cb10-224"><a href="#cb10-224" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
-<span id="cb10-225"><a href="#cb10-225" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb10-226"><a href="#cb10-226" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Forties Sample size:"</span></span>
-<span id="cb10-227"><a href="#cb10-227" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb10-228"><a href="#cb10-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-229"><a href="#cb10-229" aria-hidden="true" tabindex="-1"></a>viewof runForty <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate Sample of those in the 40s"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div id="ojs-cell-10-1" data-nodetype="declaration">
 
 </div>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+</div>
+<div class="cell-output cell-output-display">
+<div>
 <div id="ojs-cell-10-2" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
-</div>
-<div class="cell">
-<div class="sourceCode cell-code hidden" id="cb11" data-startfrom="235" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 234;"><span id="cb11-235"><a href="#cb11-235" aria-hidden="true" tabindex="-1"></a>forty <span class="op">=</span> [<span class="dv">7</span><span class="op">,</span><span class="dv">11</span><span class="op">,</span><span class="dv">20</span><span class="op">,</span><span class="dv">21</span><span class="op">,</span><span class="dv">22</span><span class="op">,</span><span class="dv">28</span><span class="op">,</span><span class="dv">37</span><span class="op">,</span><span class="dv">40</span><span class="op">,</span><span class="dv">46</span><span class="op">,</span><span class="dv">52</span><span class="op">,</span><span class="dv">60</span><span class="op">,</span><span class="dv">66</span><span class="op">,</span><span class="dv">72</span><span class="op">,</span><span class="dv">79</span><span class="op">,</span><span class="dv">81</span><span class="op">,</span><span class="dv">82</span><span class="op">,</span><span class="dv">91</span><span class="op">,</span><span class="dv">92</span><span class="op">,</span><span class="dv">94</span><span class="op">,</span><span class="dv">99</span>]</span>
-<span id="cb11-236"><a href="#cb11-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-237"><a href="#cb11-237" aria-hidden="true" tabindex="-1"></a>fortySample <span class="op">=</span> {</span>
-<span id="cb11-238"><a href="#cb11-238" aria-hidden="true" tabindex="-1"></a>   runForty<span class="op">;</span></span>
-<span id="cb11-239"><a href="#cb11-239" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> d3<span class="op">.</span><span class="fu">shuffle</span>([<span class="op">...</span>forty])<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> forty_count)<span class="op">;</span></span>
-<span id="cb11-240"><a href="#cb11-240" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb11-241"><a href="#cb11-241" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb11-242"><a href="#cb11-242" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb11-243"><a href="#cb11-243" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (runForty <span class="op">===</span> <span class="dv">0</span>) {</span>
-<span id="cb11-244"><a href="#cb11-244" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Click the button to generate a sample**`</span><span class="op">;</span></span>
-<span id="cb11-245"><a href="#cb11-245" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb11-246"><a href="#cb11-246" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Sample of those in their 40s:** Persons </span><span class="sc">${</span>fortySample<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> a <span class="op">-</span> b)<span class="op">.</span><span class="fu">join</span>(<span class="st">",  "</span>)<span class="sc">}</span><span class="vs">`</span></span>
-<span id="cb11-247"><a href="#cb11-247" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb11-248"><a href="#cb11-248" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-11-1" data-nodetype="declaration">
+<div id="ojs-cell-10-3" data-nodetype="expression">
 
 </div>
 </div>
 </div>
-<div class="cell-output cell-output-display">
-<div>
+</div>
+<div class="sourceCode cell-code hidden" id="cb11" data-startfrom="269" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 268;"><span id="cb11-269"><a href="#cb11-269" aria-hidden="true" tabindex="-1"></a>viewof thirty_count <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">number</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">20</span>]<span class="op">,</span> {</span>
+<span id="cb11-270"><a href="#cb11-270" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb11-271"><a href="#cb11-271" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb11-272"><a href="#cb11-272" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Thirties Sample size:"</span></span>
+<span id="cb11-273"><a href="#cb11-273" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb11-274"><a href="#cb11-274" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-275"><a href="#cb11-275" aria-hidden="true" tabindex="-1"></a>viewof runThirty <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate Sample of those in the 30s"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="ojs-cell-11-1" data-nodetype="declaration">
+
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div id="ojs-cell-11-2" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb12" data-startfrom="281" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 280;"><span id="cb12-281"><a href="#cb12-281" aria-hidden="true" tabindex="-1"></a>thirty <span class="op">=</span> [<span class="dv">3</span><span class="op">,</span><span class="dv">5</span><span class="op">,</span><span class="dv">18</span><span class="op">,</span><span class="dv">19</span><span class="op">,</span><span class="dv">23</span><span class="op">,</span><span class="dv">26</span><span class="op">,</span><span class="dv">30</span><span class="op">,</span><span class="dv">31</span><span class="op">,</span><span class="dv">32</span><span class="op">,</span><span class="dv">36</span><span class="op">,</span><span class="dv">49</span><span class="op">,</span><span class="dv">51</span><span class="op">,</span><span class="dv">53</span><span class="op">,</span><span class="dv">56</span><span class="op">,</span><span class="dv">57</span><span class="op">,</span><span class="dv">64</span><span class="op">,</span><span class="dv">83</span><span class="op">,</span><span class="dv">89</span><span class="op">,</span><span class="dv">90</span><span class="op">,</span><span class="dv">96</span>]</span>
+<span id="cb12-282"><a href="#cb12-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-283"><a href="#cb12-283" aria-hidden="true" tabindex="-1"></a>thirtySample <span class="op">=</span> {</span>
+<span id="cb12-284"><a href="#cb12-284" aria-hidden="true" tabindex="-1"></a>   runThirty<span class="op">;</span></span>
+<span id="cb12-285"><a href="#cb12-285" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> d3<span class="op">.</span><span class="fu">shuffle</span>([<span class="op">...</span>thirty])<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> thirty_count)<span class="op">;</span></span>
+<span id="cb12-286"><a href="#cb12-286" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb12-287"><a href="#cb12-287" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-288"><a href="#cb12-288" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb12-289"><a href="#cb12-289" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (runThirty <span class="op">===</span> <span class="dv">0</span>) {</span>
+<span id="cb12-290"><a href="#cb12-290" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Click the button to generate a sample**`</span><span class="op">;</span></span>
+<span id="cb12-291"><a href="#cb12-291" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb12-292"><a href="#cb12-292" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Sample of those in their 30s:** Persons </span><span class="sc">${</span>thirtySample<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> a <span class="op">-</span> b)<span class="op">.</span><span class="fu">join</span>(<span class="st">",  "</span>)<span class="sc">}</span><span class="vs">`</span></span>
+<span id="cb12-293"><a href="#cb12-293" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb12-294"><a href="#cb12-294" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-11-3" data-nodetype="expression">
-
-</div>
-</div>
-</div>
-</div>
-<div class="sourceCode cell-code hidden" id="cb12" data-startfrom="256" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 255;"><span id="cb12-256"><a href="#cb12-256" aria-hidden="true" tabindex="-1"></a>viewof fifty_count <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">number</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">20</span>]<span class="op">,</span> {</span>
-<span id="cb12-257"><a href="#cb12-257" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
-<span id="cb12-258"><a href="#cb12-258" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb12-259"><a href="#cb12-259" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Fifties Sample size:"</span></span>
-<span id="cb12-260"><a href="#cb12-260" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb12-261"><a href="#cb12-261" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-262"><a href="#cb12-262" aria-hidden="true" tabindex="-1"></a>viewof runFifty <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate Sample of those in the 50s"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell quarto-layout-panel" data-layout-ncol="2">
-<div class="quarto-layout-row">
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
 <div id="ojs-cell-12-1" data-nodetype="declaration">
 
 </div>
 </div>
-<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+</div>
+<div class="cell-output cell-output-display">
+<div>
 <div id="ojs-cell-12-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-12-3" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+<div class="sourceCode cell-code hidden" id="cb13" data-startfrom="302" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 301;"><span id="cb13-302"><a href="#cb13-302" aria-hidden="true" tabindex="-1"></a>viewof forty_count <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">number</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">20</span>]<span class="op">,</span> {</span>
+<span id="cb13-303"><a href="#cb13-303" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb13-304"><a href="#cb13-304" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb13-305"><a href="#cb13-305" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Forties Sample size:"</span></span>
+<span id="cb13-306"><a href="#cb13-306" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb13-307"><a href="#cb13-307" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-308"><a href="#cb13-308" aria-hidden="true" tabindex="-1"></a>viewof runForty <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate Sample of those in the 40s"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="ojs-cell-13-1" data-nodetype="declaration">
+
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="ojs-cell-13-2" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb13" data-startfrom="268" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 267;"><span id="cb13-268"><a href="#cb13-268" aria-hidden="true" tabindex="-1"></a>fifty <span class="op">=</span> [<span class="dv">8</span><span class="op">,</span><span class="dv">14</span><span class="op">,</span><span class="dv">16</span><span class="op">,</span><span class="dv">29</span><span class="op">,</span><span class="dv">33</span><span class="op">,</span><span class="dv">39</span><span class="op">,</span><span class="dv">42</span><span class="op">,</span><span class="dv">50</span><span class="op">,</span><span class="dv">58</span><span class="op">,</span><span class="dv">59</span><span class="op">,</span><span class="dv">62</span><span class="op">,</span><span class="dv">63</span><span class="op">,</span><span class="dv">65</span><span class="op">,</span><span class="dv">71</span><span class="op">,</span><span class="dv">76</span><span class="op">,</span><span class="dv">84</span><span class="op">,</span><span class="dv">85</span><span class="op">,</span><span class="dv">86</span><span class="op">,</span><span class="dv">87</span><span class="op">,</span><span class="dv">95</span>]</span>
-<span id="cb13-269"><a href="#cb13-269" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-270"><a href="#cb13-270" aria-hidden="true" tabindex="-1"></a>fiftySample <span class="op">=</span> {</span>
-<span id="cb13-271"><a href="#cb13-271" aria-hidden="true" tabindex="-1"></a>   runFifty<span class="op">;</span></span>
-<span id="cb13-272"><a href="#cb13-272" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> d3<span class="op">.</span><span class="fu">shuffle</span>([<span class="op">...</span>fifty])<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> fifty_count)<span class="op">;</span></span>
-<span id="cb13-273"><a href="#cb13-273" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb13-274"><a href="#cb13-274" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-275"><a href="#cb13-275" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb13-276"><a href="#cb13-276" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (runFifty <span class="op">===</span> <span class="dv">0</span>) {</span>
-<span id="cb13-277"><a href="#cb13-277" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Click the button to generate a sample**`</span><span class="op">;</span></span>
-<span id="cb13-278"><a href="#cb13-278" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb13-279"><a href="#cb13-279" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Sample of those in their 50s:** Persons </span><span class="sc">${</span>fiftySample<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> a <span class="op">-</span> b)<span class="op">.</span><span class="fu">join</span>(<span class="st">",  "</span>)<span class="sc">}</span><span class="vs">`</span></span>
-<span id="cb13-280"><a href="#cb13-280" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb13-281"><a href="#cb13-281" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb14" data-startfrom="314" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 313;"><span id="cb14-314"><a href="#cb14-314" aria-hidden="true" tabindex="-1"></a>forty <span class="op">=</span> [<span class="dv">7</span><span class="op">,</span><span class="dv">11</span><span class="op">,</span><span class="dv">20</span><span class="op">,</span><span class="dv">21</span><span class="op">,</span><span class="dv">22</span><span class="op">,</span><span class="dv">28</span><span class="op">,</span><span class="dv">37</span><span class="op">,</span><span class="dv">40</span><span class="op">,</span><span class="dv">46</span><span class="op">,</span><span class="dv">52</span><span class="op">,</span><span class="dv">60</span><span class="op">,</span><span class="dv">66</span><span class="op">,</span><span class="dv">72</span><span class="op">,</span><span class="dv">79</span><span class="op">,</span><span class="dv">81</span><span class="op">,</span><span class="dv">82</span><span class="op">,</span><span class="dv">91</span><span class="op">,</span><span class="dv">92</span><span class="op">,</span><span class="dv">94</span><span class="op">,</span><span class="dv">99</span>]</span>
+<span id="cb14-315"><a href="#cb14-315" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-316"><a href="#cb14-316" aria-hidden="true" tabindex="-1"></a>fortySample <span class="op">=</span> {</span>
+<span id="cb14-317"><a href="#cb14-317" aria-hidden="true" tabindex="-1"></a>   runForty<span class="op">;</span></span>
+<span id="cb14-318"><a href="#cb14-318" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> d3<span class="op">.</span><span class="fu">shuffle</span>([<span class="op">...</span>forty])<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> forty_count)<span class="op">;</span></span>
+<span id="cb14-319"><a href="#cb14-319" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-320"><a href="#cb14-320" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-321"><a href="#cb14-321" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb14-322"><a href="#cb14-322" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (runForty <span class="op">===</span> <span class="dv">0</span>) {</span>
+<span id="cb14-323"><a href="#cb14-323" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Click the button to generate a sample**`</span><span class="op">;</span></span>
+<span id="cb14-324"><a href="#cb14-324" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb14-325"><a href="#cb14-325" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Sample of those in their 40s:** Persons </span><span class="sc">${</span>fortySample<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> a <span class="op">-</span> b)<span class="op">.</span><span class="fu">join</span>(<span class="st">",  "</span>)<span class="sc">}</span><span class="vs">`</span></span>
+<span id="cb14-326"><a href="#cb14-326" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb14-327"><a href="#cb14-327" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-13-1" data-nodetype="declaration">
+<div id="ojs-cell-14-1" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-13-2" data-nodetype="declaration">
+<div id="ojs-cell-14-2" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-13-3" data-nodetype="expression">
+<div id="ojs-cell-14-3" data-nodetype="expression">
+
+</div>
+</div>
+</div>
+</div>
+<div class="sourceCode cell-code hidden" id="cb15" data-startfrom="335" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 334;"><span id="cb15-335"><a href="#cb15-335" aria-hidden="true" tabindex="-1"></a>viewof fifty_count <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">number</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">20</span>]<span class="op">,</span> {</span>
+<span id="cb15-336"><a href="#cb15-336" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb15-337"><a href="#cb15-337" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb15-338"><a href="#cb15-338" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Fifties Sample size:"</span></span>
+<span id="cb15-339"><a href="#cb15-339" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb15-340"><a href="#cb15-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-341"><a href="#cb15-341" aria-hidden="true" tabindex="-1"></a>viewof runFifty <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate Sample of those in the 50s"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell quarto-layout-panel" data-layout-ncol="2">
+<div class="quarto-layout-row">
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="ojs-cell-15-1" data-nodetype="declaration">
+
+</div>
+</div>
+<div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
+<div id="ojs-cell-15-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code hidden" id="cb16" data-startfrom="347" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 346;"><span id="cb16-347"><a href="#cb16-347" aria-hidden="true" tabindex="-1"></a>fifty <span class="op">=</span> [<span class="dv">8</span><span class="op">,</span><span class="dv">14</span><span class="op">,</span><span class="dv">16</span><span class="op">,</span><span class="dv">29</span><span class="op">,</span><span class="dv">33</span><span class="op">,</span><span class="dv">39</span><span class="op">,</span><span class="dv">42</span><span class="op">,</span><span class="dv">50</span><span class="op">,</span><span class="dv">58</span><span class="op">,</span><span class="dv">59</span><span class="op">,</span><span class="dv">62</span><span class="op">,</span><span class="dv">63</span><span class="op">,</span><span class="dv">65</span><span class="op">,</span><span class="dv">71</span><span class="op">,</span><span class="dv">76</span><span class="op">,</span><span class="dv">84</span><span class="op">,</span><span class="dv">85</span><span class="op">,</span><span class="dv">86</span><span class="op">,</span><span class="dv">87</span><span class="op">,</span><span class="dv">95</span>]</span>
+<span id="cb16-348"><a href="#cb16-348" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-349"><a href="#cb16-349" aria-hidden="true" tabindex="-1"></a>fiftySample <span class="op">=</span> {</span>
+<span id="cb16-350"><a href="#cb16-350" aria-hidden="true" tabindex="-1"></a>   runFifty<span class="op">;</span></span>
+<span id="cb16-351"><a href="#cb16-351" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> d3<span class="op">.</span><span class="fu">shuffle</span>([<span class="op">...</span>fifty])<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> fifty_count)<span class="op">;</span></span>
+<span id="cb16-352"><a href="#cb16-352" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-353"><a href="#cb16-353" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-354"><a href="#cb16-354" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb16-355"><a href="#cb16-355" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (runFifty <span class="op">===</span> <span class="dv">0</span>) {</span>
+<span id="cb16-356"><a href="#cb16-356" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Click the button to generate a sample**`</span><span class="op">;</span></span>
+<span id="cb16-357"><a href="#cb16-357" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb16-358"><a href="#cb16-358" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Sample of those in their 50s:** Persons </span><span class="sc">${</span>fiftySample<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> a <span class="op">-</span> b)<span class="op">.</span><span class="fu">join</span>(<span class="st">",  "</span>)<span class="sc">}</span><span class="vs">`</span></span>
+<span id="cb16-359"><a href="#cb16-359" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb16-360"><a href="#cb16-360" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-16-1" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-16-2" data-nodetype="declaration">
+
+</div>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<div id="ojs-cell-16-3" data-nodetype="expression">
 
 </div>
 </div>
@@ -557,71 +674,90 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="cluster-sampling" class="level3">
 <h3 class="anchored" data-anchor-id="cluster-sampling">Cluster Sampling</h3>
 <p>Here, the residents have been grouped by the street of their home. Compared to the grouping by age, it is not as clear if there are patterns in the distribution social media apps by street. This type of segmentation of the population leads to a method known as <strong>Cluster Sampling</strong> – randomly choose clusters (in this case Streets) and sample all residents that live on a specific street.</p>
-<div class="sourceCode cell-code hidden" id="cb14" data-startfrom="297" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 296;"><span id="cb14-297"><a href="#cb14-297" aria-hidden="true" tabindex="-1"></a>viewof street_count <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">number</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">20</span>]<span class="op">,</span> {</span>
-<span id="cb14-298"><a href="#cb14-298" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
-<span id="cb14-299"><a href="#cb14-299" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
-<span id="cb14-300"><a href="#cb14-300" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Number of Clusters:"</span></span>
-<span id="cb14-301"><a href="#cb14-301" aria-hidden="true" tabindex="-1"></a>})</span>
-<span id="cb14-302"><a href="#cb14-302" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-303"><a href="#cb14-303" aria-hidden="true" tabindex="-1"></a>viewof runStreet <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate Sample of Clusters"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<details>
+<summary>
+<strong>Cluster Sampling Video</strong>
+</summary>
+<iframe src="video_html/cluster_sampling.html" width="80%" height="600px" style="border:none;">
+</iframe>
+</details>
+<p>Use the Applet below to generate a Cluster Sample.</p>
+<div class="sourceCode cell-code hidden" id="cb17" data-startfrom="386" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 385;"><span id="cb17-386"><a href="#cb17-386" aria-hidden="true" tabindex="-1"></a>viewof street_count <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">number</span>([<span class="dv">0</span><span class="op">,</span> <span class="dv">20</span>]<span class="op">,</span> {</span>
+<span id="cb17-387"><a href="#cb17-387" aria-hidden="true" tabindex="-1"></a>  <span class="dt">value</span><span class="op">:</span> <span class="dv">2</span><span class="op">,</span></span>
+<span id="cb17-388"><a href="#cb17-388" aria-hidden="true" tabindex="-1"></a>  <span class="dt">step</span><span class="op">:</span> <span class="dv">1</span><span class="op">,</span></span>
+<span id="cb17-389"><a href="#cb17-389" aria-hidden="true" tabindex="-1"></a>  <span class="dt">label</span><span class="op">:</span> <span class="st">"Number of Clusters:"</span></span>
+<span id="cb17-390"><a href="#cb17-390" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb17-391"><a href="#cb17-391" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-392"><a href="#cb17-392" aria-hidden="true" tabindex="-1"></a>viewof runStreet <span class="op">=</span> Inputs<span class="op">.</span><span class="fu">button</span>(<span class="st">"Generate Sample of Clusters"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell quarto-layout-panel" data-layout-ncol="2">
 <div class="quarto-layout-row">
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="ojs-cell-14-1" data-nodetype="declaration">
+<div id="ojs-cell-17-1" data-nodetype="declaration">
 
 </div>
 </div>
 <div class="quarto-layout-cell" style="flex-basis: 50.0%;justify-content: flex-start;">
-<div id="ojs-cell-14-2" data-nodetype="declaration">
+<div id="ojs-cell-17-2" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 </div>
 <div class="cell">
-<div class="sourceCode cell-code hidden" id="cb15" data-startfrom="309" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 308;"><span id="cb15-309"><a href="#cb15-309" aria-hidden="true" tabindex="-1"></a>streets <span class="op">=</span> [<span class="st">"Apple Avenue"</span><span class="op">,</span> <span class="st">"Beech Street"</span><span class="op">,</span> <span class="st">"Chestnut Street"</span><span class="op">,</span> <span class="st">"Dogwood Drive"</span><span class="op">,</span> <span class="st">"Elm Street"</span><span class="op">,</span><span class="st">"Falcon Avenue"</span><span class="op">,</span> <span class="st">"Goetta Way"</span><span class="op">,</span> <span class="st">"High Street"</span><span class="op">,</span> <span class="st">"Indigo Avenue"</span><span class="op">,</span> <span class="st">"Jambalaya Drive"</span><span class="op">,</span> <span class="st">"Kookaburra Court"</span><span class="op">,</span> <span class="st">"Lemon Lane"</span><span class="op">,</span> <span class="st">"Maple Street"</span><span class="op">,</span> <span class="st">"Narwhal Alley"</span><span class="op">,</span> <span class="st">"Oak Street"</span><span class="op">,</span> <span class="st">"Poplar Street"</span><span class="op">,</span> <span class="st">"Quinoa Way"</span><span class="op">,</span> <span class="st">"Ramblin Road"</span><span class="op">,</span> <span class="st">"Sycamore Street"</span><span class="op">,</span> <span class="st">"Truffula Road"</span>]</span>
-<span id="cb15-310"><a href="#cb15-310" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-311"><a href="#cb15-311" aria-hidden="true" tabindex="-1"></a>streetSample <span class="op">=</span> {</span>
-<span id="cb15-312"><a href="#cb15-312" aria-hidden="true" tabindex="-1"></a>   runStreet<span class="op">;</span></span>
-<span id="cb15-313"><a href="#cb15-313" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> d3<span class="op">.</span><span class="fu">shuffle</span>([<span class="op">...</span>streets])<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> street_count)<span class="op">;</span></span>
-<span id="cb15-314"><a href="#cb15-314" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb15-315"><a href="#cb15-315" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-316"><a href="#cb15-316" aria-hidden="true" tabindex="-1"></a>{</span>
-<span id="cb15-317"><a href="#cb15-317" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (runStreet <span class="op">===</span> <span class="dv">0</span>) {</span>
-<span id="cb15-318"><a href="#cb15-318" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Click the button to generate a sample of clusters**`</span><span class="op">;</span></span>
-<span id="cb15-319"><a href="#cb15-319" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
-<span id="cb15-320"><a href="#cb15-320" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Streets Chosen to Sample:** </span><span class="sc">${</span>streetSample<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> a<span class="op">.</span><span class="fu">localeCompare</span>(b))<span class="op">.</span><span class="fu">join</span>(<span class="st">",  "</span>)<span class="sc">}</span><span class="vs">`</span></span>
-<span id="cb15-321"><a href="#cb15-321" aria-hidden="true" tabindex="-1"></a>  }</span>
-<span id="cb15-322"><a href="#cb15-322" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code hidden" id="cb18" data-startfrom="398" data-source-offset="-0"><pre class="sourceCode js code-with-copy"><code class="sourceCode javascript" style="counter-reset: source-line 397;"><span id="cb18-398"><a href="#cb18-398" aria-hidden="true" tabindex="-1"></a>streets <span class="op">=</span> [<span class="st">"Apple Avenue"</span><span class="op">,</span> <span class="st">"Beech Street"</span><span class="op">,</span> <span class="st">"Chestnut Street"</span><span class="op">,</span> <span class="st">"Dogwood Drive"</span><span class="op">,</span> <span class="st">"Elm Street"</span><span class="op">,</span><span class="st">"Falcon Avenue"</span><span class="op">,</span> <span class="st">"Goetta Way"</span><span class="op">,</span> <span class="st">"High Street"</span><span class="op">,</span> <span class="st">"Indigo Avenue"</span><span class="op">,</span> <span class="st">"Jambalaya Drive"</span><span class="op">,</span> <span class="st">"Kookaburra Court"</span><span class="op">,</span> <span class="st">"Lemon Lane"</span><span class="op">,</span> <span class="st">"Maple Street"</span><span class="op">,</span> <span class="st">"Narwhal Alley"</span><span class="op">,</span> <span class="st">"Oak Street"</span><span class="op">,</span> <span class="st">"Poplar Street"</span><span class="op">,</span> <span class="st">"Quinoa Way"</span><span class="op">,</span> <span class="st">"Ramblin Road"</span><span class="op">,</span> <span class="st">"Sycamore Street"</span><span class="op">,</span> <span class="st">"Truffula Road"</span>]</span>
+<span id="cb18-399"><a href="#cb18-399" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-400"><a href="#cb18-400" aria-hidden="true" tabindex="-1"></a>streetSample <span class="op">=</span> {</span>
+<span id="cb18-401"><a href="#cb18-401" aria-hidden="true" tabindex="-1"></a>   runStreet<span class="op">;</span></span>
+<span id="cb18-402"><a href="#cb18-402" aria-hidden="true" tabindex="-1"></a>   <span class="cf">return</span> d3<span class="op">.</span><span class="fu">shuffle</span>([<span class="op">...</span>streets])<span class="op">.</span><span class="fu">slice</span>(<span class="dv">0</span><span class="op">,</span> street_count)<span class="op">;</span></span>
+<span id="cb18-403"><a href="#cb18-403" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb18-404"><a href="#cb18-404" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-405"><a href="#cb18-405" aria-hidden="true" tabindex="-1"></a>{</span>
+<span id="cb18-406"><a href="#cb18-406" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (runStreet <span class="op">===</span> <span class="dv">0</span>) {</span>
+<span id="cb18-407"><a href="#cb18-407" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Click the button to generate a sample of clusters**`</span><span class="op">;</span></span>
+<span id="cb18-408"><a href="#cb18-408" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb18-409"><a href="#cb18-409" aria-hidden="true" tabindex="-1"></a>  <span class="cf">return</span> <span class="fu">md</span><span class="vs">`**Streets Chosen to Sample:** </span><span class="sc">${</span>streetSample<span class="op">.</span><span class="fu">sort</span>((a<span class="op">,</span> b) <span class="kw">=&gt;</span> a<span class="op">.</span><span class="fu">localeCompare</span>(b))<span class="op">.</span><span class="fu">join</span>(<span class="st">",  "</span>)<span class="sc">}</span><span class="vs">`</span></span>
+<span id="cb18-410"><a href="#cb18-410" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb18-411"><a href="#cb18-411" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-15-1" data-nodetype="declaration">
+<div id="ojs-cell-18-1" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-15-2" data-nodetype="declaration">
+<div id="ojs-cell-18-2" data-nodetype="declaration">
 
 </div>
 </div>
 </div>
 <div class="cell-output cell-output-display">
 <div>
-<div id="ojs-cell-15-3" data-nodetype="expression">
+<div id="ojs-cell-18-3" data-nodetype="expression">
 
 </div>
 </div>
 </div>
 </div>
 </section>
+</section>
+<section id="conclusions" class="level2">
+<h2 class="anchored" data-anchor-id="conclusions">Conclusions</h2>
+<p>The above outline and applets provide an overview of four common sampling methods.</p>
+<details>
+<summary>
+<strong>Conclusion Video</strong>
+</summary>
+<iframe src="video_html/final_video.html" width="80%" height="600px" style="border:none;">
+</iframe>
+</details>
 </section>
 
 </main>
 <!-- /main column -->
 <script type="ojs-module-contents">
-eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlxyXG4vLyAxLiBEZWZpbmUgeW91ciBzYW1wbGUgc2l6ZVxyXG5cclxudmlld29mIGNvdW50ID0gSW5wdXRzLm51bWJlcihbMCwgMTAwXSwge1xyXG4gIHZhbHVlOiAxMCxcclxuICBzdGVwOiAxLFxyXG4gIGxhYmVsOiBcIlNhbXBsZSBzaXplOlwiXHJcbn0pXHJcblxyXG52aWV3b2YgcnVuQnV0dG9uID0gSW5wdXRzLmJ1dHRvbihcIkdlbmVyYXRlIFNpbXBsZSBSYW5kb20gU2FtcGxlXCIpXHJcblxyXG5odG1sYDxkaXYgc3R5bGU9XCJkaXNwbGF5OiBmbGV4OyBmbGV4LWRpcmVjdGlvbjogY29sdW1uOyBnYXA6IDIwcHg7XCI+XHJcbiAgJHt2aWV3b2YgY291bnR9XHJcbiAgJHt2aWV3b2YgcnVuQnV0dG9ufVxyXG48L2Rpdj5gXHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIDMuIFNodWZmbGUgYW5kIHNsaWNlIHRvIGdldCB5b3VyIHJhbmRvbSBzYW1wbGVcclxuLy8gMS4gRGVmaW5lIHlvdXIgZGF0YSBhcnJheVxyXG5cclxucGVvcGxlID0gQXJyYXkuZnJvbSh7IGxlbmd0aDogMTAwIH0sIChfLCBpbmRleCkgPT4gaW5kZXggKyAxKTtcclxuXHJcblxyXG5yYW5kb21TYW1wbGUgPSB7XHJcbiAgIHJ1bkJ1dHRvbjtcclxuICAgcmV0dXJuIGQzLnNodWZmbGUoWy4uLnBlb3BsZV0pLnNsaWNlKDAsIGNvdW50KTtcclxufVxyXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTMiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiIvLyAzLiBEaXNwbGF5IHRoZSBudW1iZXJzIGJlYXV0aWZ1bGx5XHJcbntcclxuICBpZiAocnVuQnV0dG9uID09PSAwKSB7XHJcbiAgcmV0dXJuIG1kYCoqQ2xpY2sgdGhlIGJ1dHRvbiB0byBnZW5lcmF0ZSBhIHNhbXBsZSoqYDtcclxuICB9IGVsc2Uge1xyXG4gIHJldHVybiBtZGAqKllvdXIgU2FtcGxlOioqIFBlcnNvbnMgJHtyYW5kb21TYW1wbGUuc29ydCgoYSwgYikgPT4gYSAtIGIpLmpvaW4oXCIsICBcIil9YFxyXG4gIH1cclxufVxyXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ2aWV3b2YgdGVlbl9jb3VudCA9IElucHV0cy5udW1iZXIoWzAsIDIwXSwge1xyXG4gIHZhbHVlOiAyLFxyXG4gIHN0ZXA6IDEsXHJcbiAgbGFiZWw6IFwiVGVlbmFnZXIgU2FtcGxlIHNpemU6XCJcclxufSlcclxuXHJcbnZpZXdvZiBydW5UZWVucyA9IElucHV0cy5idXR0b24oXCJHZW5lcmF0ZSBTYW1wbGUgb2YgVGVlbmFnZXJzXCIpXHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InRlZW5zID0gWzEsOSwxMiwxMywxNywyNCwyNSwyNywzNCw0MSw0Myw1NCw2Nyw2OCw3Myw3NCw3NSw3Nyw4OCw5OF1cclxuXHJcbnRlZW5TYW1wbGUgPSB7XHJcbiAgIHJ1blRlZW5zO1xyXG4gICByZXR1cm4gZDMuc2h1ZmZsZShbLi4udGVlbnNdKS5zbGljZSgwLCB0ZWVuX2NvdW50KTtcclxufVxyXG5cclxue1xyXG4gIGlmIChydW5UZWVucyA9PT0gMCkge1xyXG4gIHJldHVybiBtZGAqKkNsaWNrIHRoZSBidXR0b24gdG8gZ2VuZXJhdGUgYSBzYW1wbGUqKmA7XHJcbiAgfSBlbHNlIHtcclxuICByZXR1cm4gbWRgKipTYW1wbGUgb2YgdGVlbmFnZXJzOioqIFBlcnNvbnMgJHt0ZWVuU2FtcGxlLnNvcnQoKGEsIGIpID0+IGEgLSBiKS5qb2luKFwiLCAgXCIpfWBcclxuICB9XHJcbn1cclxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC02IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIHR3ZW50eV9jb3VudCA9IElucHV0cy5udW1iZXIoWzAsIDIwXSwge1xyXG4gIHZhbHVlOiAyLFxyXG4gIHN0ZXA6IDEsXHJcbiAgbGFiZWw6IFwiVHdlbnRpZXMgU2FtcGxlIHNpemU6XCJcclxufSlcclxuXHJcbnZpZXdvZiBydW5Ud2VudHkgPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgU2FtcGxlIG9mIHRob3NlIGluIHRoZSAyMHNcIilcclxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC03IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidHdlbnR5ID0gWzIsNCw2LDEwLDE1LDM1LDM4LDQ0LDQ1LDQ3LDQ4LDU1LDYxLDY5LDcwLDc4LDgwLDkzLDk3LDEwMF1cclxuXHJcbnR3ZW50eVNhbXBsZSA9IHtcclxuICAgcnVuVHdlbnR5O1xyXG4gICByZXR1cm4gZDMuc2h1ZmZsZShbLi4udHdlbnR5XSkuc2xpY2UoMCwgdHdlbnR5X2NvdW50KTtcclxufVxyXG5cclxue1xyXG4gIGlmIChydW5Ud2VudHkgPT09IDApIHtcclxuICByZXR1cm4gbWRgKipDbGljayB0aGUgYnV0dG9uIHRvIGdlbmVyYXRlIGEgc2FtcGxlKipgO1xyXG4gIH0gZWxzZSB7XHJcbiAgcmV0dXJuIG1kYCoqU2FtcGxlIG9mIHRob3NlIGluIHRoZWlyIDIwczoqKiBQZXJzb25zICR7dHdlbnR5U2FtcGxlLnNvcnQoKGEsIGIpID0+IGEgLSBiKS5qb2luKFwiLCAgXCIpfWBcclxuICB9XHJcbn1cclxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC04IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIHRoaXJ0eV9jb3VudCA9IElucHV0cy5udW1iZXIoWzAsIDIwXSwge1xyXG4gIHZhbHVlOiAyLFxyXG4gIHN0ZXA6IDEsXHJcbiAgbGFiZWw6IFwiVGhpcnRpZXMgU2FtcGxlIHNpemU6XCJcclxufSlcclxuXHJcbnZpZXdvZiBydW5UaGlydHkgPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgU2FtcGxlIG9mIHRob3NlIGluIHRoZSAzMHNcIilcclxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC05IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidGhpcnR5ID0gWzMsNSwxOCwxOSwyMywyNiwzMCwzMSwzMiwzNiw0OSw1MSw1Myw1Niw1Nyw2NCw4Myw4OSw5MCw5Nl1cclxuXHJcbnRoaXJ0eVNhbXBsZSA9IHtcclxuICAgcnVuVGhpcnR5O1xyXG4gICByZXR1cm4gZDMuc2h1ZmZsZShbLi4udGhpcnR5XSkuc2xpY2UoMCwgdGhpcnR5X2NvdW50KTtcclxufVxyXG5cclxue1xyXG4gIGlmIChydW5UaGlydHkgPT09IDApIHtcclxuICByZXR1cm4gbWRgKipDbGljayB0aGUgYnV0dG9uIHRvIGdlbmVyYXRlIGEgc2FtcGxlKipgO1xyXG4gIH0gZWxzZSB7XHJcbiAgcmV0dXJuIG1kYCoqU2FtcGxlIG9mIHRob3NlIGluIHRoZWlyIDMwczoqKiBQZXJzb25zICR7dGhpcnR5U2FtcGxlLnNvcnQoKGEsIGIpID0+IGEgLSBiKS5qb2luKFwiLCAgXCIpfWBcclxuICB9XHJcbn1cclxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xMCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBmb3J0eV9jb3VudCA9IElucHV0cy5udW1iZXIoWzAsIDIwXSwge1xyXG4gIHZhbHVlOiAyLFxyXG4gIHN0ZXA6IDEsXHJcbiAgbGFiZWw6IFwiRm9ydGllcyBTYW1wbGUgc2l6ZTpcIlxyXG59KVxyXG5cclxudmlld29mIHJ1bkZvcnR5ID0gSW5wdXRzLmJ1dHRvbihcIkdlbmVyYXRlIFNhbXBsZSBvZiB0aG9zZSBpbiB0aGUgNDBzXCIpXHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMTEiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJmb3J0eSA9IFs3LDExLDIwLDIxLDIyLDI4LDM3LDQwLDQ2LDUyLDYwLDY2LDcyLDc5LDgxLDgyLDkxLDkyLDk0LDk5XVxyXG5cclxuZm9ydHlTYW1wbGUgPSB7XHJcbiAgIHJ1bkZvcnR5O1xyXG4gICByZXR1cm4gZDMuc2h1ZmZsZShbLi4uZm9ydHldKS5zbGljZSgwLCBmb3J0eV9jb3VudCk7XHJcbn1cclxuXHJcbntcclxuICBpZiAocnVuRm9ydHkgPT09IDApIHtcclxuICByZXR1cm4gbWRgKipDbGljayB0aGUgYnV0dG9uIHRvIGdlbmVyYXRlIGEgc2FtcGxlKipgO1xyXG4gIH0gZWxzZSB7XHJcbiAgcmV0dXJuIG1kYCoqU2FtcGxlIG9mIHRob3NlIGluIHRoZWlyIDQwczoqKiBQZXJzb25zICR7Zm9ydHlTYW1wbGUuc29ydCgoYSwgYikgPT4gYSAtIGIpLmpvaW4oXCIsICBcIil9YFxyXG4gIH1cclxufVxyXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTEyIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIGZpZnR5X2NvdW50ID0gSW5wdXRzLm51bWJlcihbMCwgMjBdLCB7XHJcbiAgdmFsdWU6IDIsXHJcbiAgc3RlcDogMSxcclxuICBsYWJlbDogXCJGaWZ0aWVzIFNhbXBsZSBzaXplOlwiXHJcbn0pXHJcblxyXG52aWV3b2YgcnVuRmlmdHkgPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgU2FtcGxlIG9mIHRob3NlIGluIHRoZSA1MHNcIilcclxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImZpZnR5ID0gWzgsMTQsMTYsMjksMzMsMzksNDIsNTAsNTgsNTksNjIsNjMsNjUsNzEsNzYsODQsODUsODYsODcsOTVdXHJcblxyXG5maWZ0eVNhbXBsZSA9IHtcclxuICAgcnVuRmlmdHk7XHJcbiAgIHJldHVybiBkMy5zaHVmZmxlKFsuLi5maWZ0eV0pLnNsaWNlKDAsIGZpZnR5X2NvdW50KTtcclxufVxyXG5cclxue1xyXG4gIGlmIChydW5GaWZ0eSA9PT0gMCkge1xyXG4gIHJldHVybiBtZGAqKkNsaWNrIHRoZSBidXR0b24gdG8gZ2VuZXJhdGUgYSBzYW1wbGUqKmA7XHJcbiAgfSBlbHNlIHtcclxuICByZXR1cm4gbWRgKipTYW1wbGUgb2YgdGhvc2UgaW4gdGhlaXIgNTBzOioqIFBlcnNvbnMgJHtmaWZ0eVNhbXBsZS5zb3J0KChhLCBiKSA9PiBhIC0gYikuam9pbihcIiwgIFwiKX1gXHJcbiAgfVxyXG59XHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ2aWV3b2Ygc3RyZWV0X2NvdW50ID0gSW5wdXRzLm51bWJlcihbMCwgMjBdLCB7XHJcbiAgdmFsdWU6IDIsXHJcbiAgc3RlcDogMSxcclxuICBsYWJlbDogXCJOdW1iZXIgb2YgQ2x1c3RlcnM6XCJcclxufSlcclxuXHJcbnZpZXdvZiBydW5TdHJlZXQgPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgU2FtcGxlIG9mIENsdXN0ZXJzXCIpXHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMTUiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJzdHJlZXRzID0gW1wiQXBwbGUgQXZlbnVlXCIsIFwiQmVlY2ggU3RyZWV0XCIsIFwiQ2hlc3RudXQgU3RyZWV0XCIsIFwiRG9nd29vZCBEcml2ZVwiLCBcIkVsbSBTdHJlZXRcIixcIkZhbGNvbiBBdmVudWVcIiwgXCJHb2V0dGEgV2F5XCIsIFwiSGlnaCBTdHJlZXRcIiwgXCJJbmRpZ28gQXZlbnVlXCIsIFwiSmFtYmFsYXlhIERyaXZlXCIsIFwiS29va2FidXJyYSBDb3VydFwiLCBcIkxlbW9uIExhbmVcIiwgXCJNYXBsZSBTdHJlZXRcIiwgXCJOYXJ3aGFsIEFsbGV5XCIsIFwiT2FrIFN0cmVldFwiLCBcIlBvcGxhciBTdHJlZXRcIiwgXCJRdWlub2EgV2F5XCIsIFwiUmFtYmxpbiBSb2FkXCIsIFwiU3ljYW1vcmUgU3RyZWV0XCIsIFwiVHJ1ZmZ1bGEgUm9hZFwiXVxyXG5cclxuc3RyZWV0U2FtcGxlID0ge1xyXG4gICBydW5TdHJlZXQ7XHJcbiAgIHJldHVybiBkMy5zaHVmZmxlKFsuLi5zdHJlZXRzXSkuc2xpY2UoMCwgc3RyZWV0X2NvdW50KTtcclxufVxyXG5cclxue1xyXG4gIGlmIChydW5TdHJlZXQgPT09IDApIHtcclxuICByZXR1cm4gbWRgKipDbGljayB0aGUgYnV0dG9uIHRvIGdlbmVyYXRlIGEgc2FtcGxlIG9mIGNsdXN0ZXJzKipgO1xyXG4gIH0gZWxzZSB7XHJcbiAgcmV0dXJuIG1kYCoqU3RyZWV0cyBDaG9zZW4gdG8gU2FtcGxlOioqICR7c3RyZWV0U2FtcGxlLnNvcnQoKGEsIGIpID0+IGEubG9jYWxlQ29tcGFyZShiKSkuam9pbihcIiwgIFwiKX1gXHJcbiAgfVxyXG59XHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnY291bnQnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncnVuQnV0dG9uJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3RlZW5fY291bnQnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncnVuVGVlbnMnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgndHdlbnR5X2NvdW50JykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3J1blR3ZW50eScpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCd0aGlydHlfY291bnQnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncnVuVGhpcnR5JykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2ZvcnR5X2NvdW50JykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3J1bkZvcnR5JykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ2ZpZnR5X2NvdW50JykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3J1bkZpZnR5JykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3N0cmVldF9jb3VudCcpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdydW5TdHJlZXQnKSJ9XX0=
+eyJjb250ZW50cyI6W3sibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6IlxyXG4vLyAxLiBEZWZpbmUgeW91ciBzYW1wbGUgc2l6ZVxyXG5cclxudmlld29mIGNvdW50ID0gSW5wdXRzLm51bWJlcihbMCwgMTAwXSwge1xyXG4gIHZhbHVlOiAxMCxcclxuICBzdGVwOiAxLFxyXG4gIGxhYmVsOiBcIlNhbXBsZSBzaXplOlwiXHJcbn0pXHJcblxyXG52aWV3b2YgcnVuQnV0dG9uID0gSW5wdXRzLmJ1dHRvbihcIkdlbmVyYXRlIFNpbXBsZSBSYW5kb20gU2FtcGxlXCIpXHJcblxyXG5odG1sYDxkaXYgc3R5bGU9XCJkaXNwbGF5OiBmbGV4OyBmbGV4LWRpcmVjdGlvbjogY29sdW1uOyBnYXA6IDIwcHg7XCI+XHJcbiAgJHt2aWV3b2YgY291bnR9XHJcbiAgJHt2aWV3b2YgcnVuQnV0dG9ufVxyXG48L2Rpdj5gXHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIDMuIFNodWZmbGUgYW5kIHNsaWNlIHRvIGdldCB5b3VyIHJhbmRvbSBzYW1wbGVcclxuLy8gMS4gRGVmaW5lIHlvdXIgZGF0YSBhcnJheVxyXG5cclxucGVvcGxlID0gQXJyYXkuZnJvbSh7IGxlbmd0aDogMTAwIH0sIChfLCBpbmRleCkgPT4gaW5kZXggKyAxKTtcclxuXHJcblxyXG5yYW5kb21TYW1wbGUgPSB7XHJcbiAgIHJ1bkJ1dHRvbjtcclxuICAgcmV0dXJuIGQzLnNodWZmbGUoWy4uLnBlb3BsZV0pLnNsaWNlKDAsIGNvdW50KTtcclxufVxyXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTMiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiIvLyAzLiBEaXNwbGF5IHRoZSBudW1iZXJzIGJlYXV0aWZ1bGx5XHJcbntcclxuICBpZiAocnVuQnV0dG9uID09PSAwKSB7XHJcbiAgcmV0dXJuIG1kYCoqQ2xpY2sgdGhlIGJ1dHRvbiB0byBnZW5lcmF0ZSBhIHNhbXBsZSoqYDtcclxuICB9IGVsc2Uge1xyXG4gIHJldHVybiBtZGAqKllvdXIgU2FtcGxlOioqIFBlcnNvbnMgJHtyYW5kb21TYW1wbGUuc29ydCgoYSwgYikgPT4gYSAtIGIpLmpvaW4oXCIsICBcIil9YFxyXG4gIH1cclxufVxyXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJcclxuLy8gMS4gRGVmaW5lIHlvdXIgc2FtcGxlIHNpemVcclxuXHJcbnZpZXdvZiByb2xsRGllID0gSW5wdXRzLmJ1dHRvbihcIvCfjrIgUm9sbCAxMC1zaWRlZCBEaWVcIilcclxuXHJcbmh0bWxgPGRpdiBzdHlsZT1cImRpc3BsYXk6IGZsZXg7IGZsZXgtZGlyZWN0aW9uOiBjb2x1bW47IGdhcDogMjBweDtcIj5cclxuICAke3ZpZXdvZiByb2xsRGllfVxyXG48L2Rpdj5gXHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtNSIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6Ii8vIDMuIFNodWZmbGUgYW5kIHNsaWNlIHRvIGdldCB5b3VyIHJhbmRvbSBzYW1wbGVcclxuLy8gMS4gRGVmaW5lIHlvdXIgZGF0YSBhcnJheVxyXG5cclxucmFuZG9tRGllID0ge1xyXG4gICByb2xsRGllO1xyXG4gICByZXR1cm4gTWF0aC5mbG9vcihNYXRoLnJhbmRvbSgpICogMTApICsgMTtcclxufVxyXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTYiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiIvLyAzLiBEaXNwbGF5IHRoZSBudW1iZXJzIGJlYXV0aWZ1bGx5XHJcbntcclxuICBpZiAocm9sbERpZSA9PT0gMCkge1xyXG4gIHJldHVybiBtZGAqKkNsaWNrIHRoZSBidXR0b24gdG8gcm9sbCB0aGUgZGllKipgO1xyXG4gIH0gZWxzZSB7XHJcbiAgcmV0dXJuIG1kYCoqWW91ciBEaWUgUm9sbDoqKiBQZXJzb24gJHtyYW5kb21EaWV9YFxyXG4gIH1cclxufVxyXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTciLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ2aWV3b2YgdGVlbl9jb3VudCA9IElucHV0cy5udW1iZXIoWzAsIDIwXSwge1xyXG4gIHZhbHVlOiAyLFxyXG4gIHN0ZXA6IDEsXHJcbiAgbGFiZWw6IFwiVGVlbmFnZXIgU2FtcGxlIHNpemU6XCJcclxufSlcclxuXHJcbnZpZXdvZiBydW5UZWVucyA9IElucHV0cy5idXR0b24oXCJHZW5lcmF0ZSBTYW1wbGUgb2YgVGVlbmFnZXJzXCIpXHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtOCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InRlZW5zID0gWzEsOSwxMiwxMywxNywyNCwyNSwyNywzNCw0MSw0Myw1NCw2Nyw2OCw3Myw3NCw3NSw3Nyw4OCw5OF1cclxuXHJcbnRlZW5TYW1wbGUgPSB7XHJcbiAgIHJ1blRlZW5zO1xyXG4gICByZXR1cm4gZDMuc2h1ZmZsZShbLi4udGVlbnNdKS5zbGljZSgwLCB0ZWVuX2NvdW50KTtcclxufVxyXG5cclxue1xyXG4gIGlmIChydW5UZWVucyA9PT0gMCkge1xyXG4gIHJldHVybiBtZGAqKkNsaWNrIHRoZSBidXR0b24gdG8gZ2VuZXJhdGUgYSBzYW1wbGUqKmA7XHJcbiAgfSBlbHNlIHtcclxuICByZXR1cm4gbWRgKipTYW1wbGUgb2YgdGVlbmFnZXJzOioqIFBlcnNvbnMgJHt0ZWVuU2FtcGxlLnNvcnQoKGEsIGIpID0+IGEgLSBiKS5qb2luKFwiLCAgXCIpfWBcclxuICB9XHJcbn1cclxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC05IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIHR3ZW50eV9jb3VudCA9IElucHV0cy5udW1iZXIoWzAsIDIwXSwge1xyXG4gIHZhbHVlOiAyLFxyXG4gIHN0ZXA6IDEsXHJcbiAgbGFiZWw6IFwiVHdlbnRpZXMgU2FtcGxlIHNpemU6XCJcclxufSlcclxuXHJcbnZpZXdvZiBydW5Ud2VudHkgPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgU2FtcGxlIG9mIHRob3NlIGluIHRoZSAyMHNcIilcclxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xMCIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InR3ZW50eSA9IFsyLDQsNiwxMCwxNSwzNSwzOCw0NCw0NSw0Nyw0OCw1NSw2MSw2OSw3MCw3OCw4MCw5Myw5NywxMDBdXHJcblxyXG50d2VudHlTYW1wbGUgPSB7XHJcbiAgIHJ1blR3ZW50eTtcclxuICAgcmV0dXJuIGQzLnNodWZmbGUoWy4uLnR3ZW50eV0pLnNsaWNlKDAsIHR3ZW50eV9jb3VudCk7XHJcbn1cclxuXHJcbntcclxuICBpZiAocnVuVHdlbnR5ID09PSAwKSB7XHJcbiAgcmV0dXJuIG1kYCoqQ2xpY2sgdGhlIGJ1dHRvbiB0byBnZW5lcmF0ZSBhIHNhbXBsZSoqYDtcclxuICB9IGVsc2Uge1xyXG4gIHJldHVybiBtZGAqKlNhbXBsZSBvZiB0aG9zZSBpbiB0aGVpciAyMHM6KiogUGVyc29ucyAke3R3ZW50eVNhbXBsZS5zb3J0KChhLCBiKSA9PiBhIC0gYikuam9pbihcIiwgIFwiKX1gXHJcbiAgfVxyXG59XHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMTEiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ2aWV3b2YgdGhpcnR5X2NvdW50ID0gSW5wdXRzLm51bWJlcihbMCwgMjBdLCB7XHJcbiAgdmFsdWU6IDIsXHJcbiAgc3RlcDogMSxcclxuICBsYWJlbDogXCJUaGlydGllcyBTYW1wbGUgc2l6ZTpcIlxyXG59KVxyXG5cclxudmlld29mIHJ1blRoaXJ0eSA9IElucHV0cy5idXR0b24oXCJHZW5lcmF0ZSBTYW1wbGUgb2YgdGhvc2UgaW4gdGhlIDMwc1wiKVxyXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTEyIiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidGhpcnR5ID0gWzMsNSwxOCwxOSwyMywyNiwzMCwzMSwzMiwzNiw0OSw1MSw1Myw1Niw1Nyw2NCw4Myw4OSw5MCw5Nl1cclxuXHJcbnRoaXJ0eVNhbXBsZSA9IHtcclxuICAgcnVuVGhpcnR5O1xyXG4gICByZXR1cm4gZDMuc2h1ZmZsZShbLi4udGhpcnR5XSkuc2xpY2UoMCwgdGhpcnR5X2NvdW50KTtcclxufVxyXG5cclxue1xyXG4gIGlmIChydW5UaGlydHkgPT09IDApIHtcclxuICByZXR1cm4gbWRgKipDbGljayB0aGUgYnV0dG9uIHRvIGdlbmVyYXRlIGEgc2FtcGxlKipgO1xyXG4gIH0gZWxzZSB7XHJcbiAgcmV0dXJuIG1kYCoqU2FtcGxlIG9mIHRob3NlIGluIHRoZWlyIDMwczoqKiBQZXJzb25zICR7dGhpcnR5U2FtcGxlLnNvcnQoKGEsIGIpID0+IGEgLSBiKS5qb2luKFwiLCAgXCIpfWBcclxuICB9XHJcbn1cclxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xMyIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6InZpZXdvZiBmb3J0eV9jb3VudCA9IElucHV0cy5udW1iZXIoWzAsIDIwXSwge1xyXG4gIHZhbHVlOiAyLFxyXG4gIHN0ZXA6IDEsXHJcbiAgbGFiZWw6IFwiRm9ydGllcyBTYW1wbGUgc2l6ZTpcIlxyXG59KVxyXG5cclxudmlld29mIHJ1bkZvcnR5ID0gSW5wdXRzLmJ1dHRvbihcIkdlbmVyYXRlIFNhbXBsZSBvZiB0aG9zZSBpbiB0aGUgNDBzXCIpXHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMTQiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJmb3J0eSA9IFs3LDExLDIwLDIxLDIyLDI4LDM3LDQwLDQ2LDUyLDYwLDY2LDcyLDc5LDgxLDgyLDkxLDkyLDk0LDk5XVxyXG5cclxuZm9ydHlTYW1wbGUgPSB7XHJcbiAgIHJ1bkZvcnR5O1xyXG4gICByZXR1cm4gZDMuc2h1ZmZsZShbLi4uZm9ydHldKS5zbGljZSgwLCBmb3J0eV9jb3VudCk7XHJcbn1cclxuXHJcbntcclxuICBpZiAocnVuRm9ydHkgPT09IDApIHtcclxuICByZXR1cm4gbWRgKipDbGljayB0aGUgYnV0dG9uIHRvIGdlbmVyYXRlIGEgc2FtcGxlKipgO1xyXG4gIH0gZWxzZSB7XHJcbiAgcmV0dXJuIG1kYCoqU2FtcGxlIG9mIHRob3NlIGluIHRoZWlyIDQwczoqKiBQZXJzb25zICR7Zm9ydHlTYW1wbGUuc29ydCgoYSwgYikgPT4gYSAtIGIpLmpvaW4oXCIsICBcIil9YFxyXG4gIH1cclxufVxyXG4ifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXQiLCJjZWxsTmFtZSI6Im9qcy1jZWxsLTE1IiwiaW5saW5lIjpmYWxzZSwic291cmNlIjoidmlld29mIGZpZnR5X2NvdW50ID0gSW5wdXRzLm51bWJlcihbMCwgMjBdLCB7XHJcbiAgdmFsdWU6IDIsXHJcbiAgc3RlcDogMSxcclxuICBsYWJlbDogXCJGaWZ0aWVzIFNhbXBsZSBzaXplOlwiXHJcbn0pXHJcblxyXG52aWV3b2YgcnVuRmlmdHkgPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgU2FtcGxlIG9mIHRob3NlIGluIHRoZSA1MHNcIilcclxuIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0IiwiY2VsbE5hbWUiOiJvanMtY2VsbC0xNiIsImlubGluZSI6ZmFsc2UsInNvdXJjZSI6ImZpZnR5ID0gWzgsMTQsMTYsMjksMzMsMzksNDIsNTAsNTgsNTksNjIsNjMsNjUsNzEsNzYsODQsODUsODYsODcsOTVdXHJcblxyXG5maWZ0eVNhbXBsZSA9IHtcclxuICAgcnVuRmlmdHk7XHJcbiAgIHJldHVybiBkMy5zaHVmZmxlKFsuLi5maWZ0eV0pLnNsaWNlKDAsIGZpZnR5X2NvdW50KTtcclxufVxyXG5cclxue1xyXG4gIGlmIChydW5GaWZ0eSA9PT0gMCkge1xyXG4gIHJldHVybiBtZGAqKkNsaWNrIHRoZSBidXR0b24gdG8gZ2VuZXJhdGUgYSBzYW1wbGUqKmA7XHJcbiAgfSBlbHNlIHtcclxuICByZXR1cm4gbWRgKipTYW1wbGUgb2YgdGhvc2UgaW4gdGhlaXIgNTBzOioqIFBlcnNvbnMgJHtmaWZ0eVNhbXBsZS5zb3J0KChhLCBiKSA9PiBhIC0gYikuam9pbihcIiwgIFwiKX1gXHJcbiAgfVxyXG59XHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMTciLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJ2aWV3b2Ygc3RyZWV0X2NvdW50ID0gSW5wdXRzLm51bWJlcihbMCwgMjBdLCB7XHJcbiAgdmFsdWU6IDIsXHJcbiAgc3RlcDogMSxcclxuICBsYWJlbDogXCJOdW1iZXIgb2YgQ2x1c3RlcnM6XCJcclxufSlcclxuXHJcbnZpZXdvZiBydW5TdHJlZXQgPSBJbnB1dHMuYnV0dG9uKFwiR2VuZXJhdGUgU2FtcGxlIG9mIENsdXN0ZXJzXCIpXHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldCIsImNlbGxOYW1lIjoib2pzLWNlbGwtMTgiLCJpbmxpbmUiOmZhbHNlLCJzb3VyY2UiOiJzdHJlZXRzID0gW1wiQXBwbGUgQXZlbnVlXCIsIFwiQmVlY2ggU3RyZWV0XCIsIFwiQ2hlc3RudXQgU3RyZWV0XCIsIFwiRG9nd29vZCBEcml2ZVwiLCBcIkVsbSBTdHJlZXRcIixcIkZhbGNvbiBBdmVudWVcIiwgXCJHb2V0dGEgV2F5XCIsIFwiSGlnaCBTdHJlZXRcIiwgXCJJbmRpZ28gQXZlbnVlXCIsIFwiSmFtYmFsYXlhIERyaXZlXCIsIFwiS29va2FidXJyYSBDb3VydFwiLCBcIkxlbW9uIExhbmVcIiwgXCJNYXBsZSBTdHJlZXRcIiwgXCJOYXJ3aGFsIEFsbGV5XCIsIFwiT2FrIFN0cmVldFwiLCBcIlBvcGxhciBTdHJlZXRcIiwgXCJRdWlub2EgV2F5XCIsIFwiUmFtYmxpbiBSb2FkXCIsIFwiU3ljYW1vcmUgU3RyZWV0XCIsIFwiVHJ1ZmZ1bGEgUm9hZFwiXVxyXG5cclxuc3RyZWV0U2FtcGxlID0ge1xyXG4gICBydW5TdHJlZXQ7XHJcbiAgIHJldHVybiBkMy5zaHVmZmxlKFsuLi5zdHJlZXRzXSkuc2xpY2UoMCwgc3RyZWV0X2NvdW50KTtcclxufVxyXG5cclxue1xyXG4gIGlmIChydW5TdHJlZXQgPT09IDApIHtcclxuICByZXR1cm4gbWRgKipDbGljayB0aGUgYnV0dG9uIHRvIGdlbmVyYXRlIGEgc2FtcGxlIG9mIGNsdXN0ZXJzKipgO1xyXG4gIH0gZWxzZSB7XHJcbiAgcmV0dXJuIG1kYCoqU3RyZWV0cyBDaG9zZW4gdG8gU2FtcGxlOioqICR7c3RyZWV0U2FtcGxlLnNvcnQoKGEsIGIpID0+IGEubG9jYWxlQ29tcGFyZShiKSkuam9pbihcIiwgIFwiKX1gXHJcbiAgfVxyXG59XHJcbiJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnY291bnQnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncnVuQnV0dG9uJykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3JvbGxEaWUnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgndGVlbl9jb3VudCcpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdydW5UZWVucycpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCd0d2VudHlfY291bnQnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncnVuVHdlbnR5JykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3RoaXJ0eV9jb3VudCcpIn0seyJtZXRob2ROYW1lIjoiaW50ZXJwcmV0UXVpZXQiLCJzb3VyY2UiOiJzaGlueUlucHV0KCdydW5UaGlydHknKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnZm9ydHlfY291bnQnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncnVuRm9ydHknKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnZmlmdHlfY291bnQnKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgncnVuRmlmdHknKSJ9LHsibWV0aG9kTmFtZSI6ImludGVycHJldFF1aWV0Iiwic291cmNlIjoic2hpbnlJbnB1dCgnc3RyZWV0X2NvdW50JykifSx7Im1ldGhvZE5hbWUiOiJpbnRlcnByZXRRdWlldCIsInNvdXJjZSI6InNoaW55SW5wdXQoJ3J1blN0cmVldCcpIn1dfQ==
 </script>
 <script type="module">
 if (window.location.protocol === "file:") { alert("The OJS runtime does not work with file:// URLs. Please use a web server to view this document."); }
